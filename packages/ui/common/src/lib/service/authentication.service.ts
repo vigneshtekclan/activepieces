@@ -7,7 +7,7 @@ import {
   AuthenticationResponse,
   ClaimTokenRequest,
   FederatedAuthnLoginResponse,
-  Permission,
+  // Permission,
   PlatformRole,
   Principal,
   ProjectId,
@@ -18,12 +18,12 @@ import {
   User,
 } from '@activepieces/shared';
 import { environment } from '../environments/environment';
-import {
-  CreateOtpRequestBody,
-  ResetPasswordRequestBody,
-  VerifyEmailRequestBody,
-  rolePermissions,
-} from '@activepieces/ee-shared';
+// import {
+//   CreateOtpRequestBody,
+//   ResetPasswordRequestBody,
+//   VerifyEmailRequestBody,
+//   rolePermissions,
+// } from '@activepieces/ee-shared';
 import { FlagService } from './flag.service';
 import { TelemetryService } from './telemetry.service';
 
@@ -33,13 +33,13 @@ export const currentUser: () => AuthenticationResponse = () => {
     localStorage.getItem(environment.userPropertyNameInLocalStorage) || '{}'
   );
 };
-export const doesUserHavePermission = (permission: Permission) => {
-  const role = currentUser()?.projectRole;
-  if (!role) {
-    return true;
-  }
-  return rolePermissions[role].includes(permission);
-};
+// export const doesUserHavePermission = (permission: Permission) => {
+//   const role = currentUser()?.projectRole;
+//   if (!role) {
+//     return true;
+//   }
+//   return rolePermissions[role].includes(permission);
+// };
 @Injectable({
   providedIn: 'root',
 })
@@ -176,22 +176,22 @@ export class AuthenticationService {
     );
   }
 
-  sendOtpEmail(req: CreateOtpRequestBody) {
-    return this.http.post<void>(`${environment.apiUrl}/otp`, req);
-  }
+  // sendOtpEmail(req: CreateOtpRequestBody) {
+  //   return this.http.post<void>(`${environment.apiUrl}/otp`, req);
+  // }
 
-  verifyEmail(req: VerifyEmailRequestBody) {
-    return this.http.post<void>(
-      `${environment.apiUrl}/authn/local/verify-email`,
-      req
-    );
-  }
-  resetPassword(req: ResetPasswordRequestBody) {
-    return this.http.post<void>(
-      `${environment.apiUrl}/authn/local/reset-password`,
-      req
-    );
-  }
+  // verifyEmail(req: VerifyEmailRequestBody) {
+  //   return this.http.post<void>(
+  //     `${environment.apiUrl}/authn/local/verify-email`,
+  //     req
+  //   );
+  // }
+  // resetPassword(req: ResetPasswordRequestBody) {
+  //   return this.http.post<void>(
+  //     `${environment.apiUrl}/authn/local/reset-password`,
+  //     req
+  //   );
+  // }
 
   switchProject({
     refresh,

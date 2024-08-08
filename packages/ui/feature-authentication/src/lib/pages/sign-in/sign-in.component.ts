@@ -16,8 +16,8 @@ import {
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { StatusCodes } from 'http-status-codes';
 import { ApEdition, ApFlagId, ErrorCode } from '@activepieces/shared';
-import { OtpType } from '@activepieces/ee-shared';
-import { MatSnackBar } from '@angular/material/snack-bar';
+// import { OtpType } from '@activepieces/ee-shared';
+// import { MatSnackBar } from '@angular/material/snack-bar';
 interface SignInForm {
   email: FormControl<string>;
   password: FormControl<string>;
@@ -47,8 +47,7 @@ export class SignInComponent {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private flagsService: FlagService,
-    private redirectService: RedirectService,
-    private snackbar: MatSnackBar
+    private redirectService: RedirectService // private snackbar: MatSnackBar
   ) {
     this.loginsWithEmailEnabled$ = this.flagsService.isFlagEnabled(
       ApFlagId.EMAIL_AUTH_ENABLED
@@ -120,19 +119,19 @@ export class SignInComponent {
 
   sendVerificationEmail() {
     this.sendingVerificationEmail = true;
-    this.sendVerificationEmail$ = this.authenticationService
-      .sendOtpEmail({
-        email: this.loginForm.getRawValue().email,
-        type: OtpType.EMAIL_VERIFICATION,
-      })
-      .pipe(
-        tap(() => {
-          this.snackbar.open(
-            'Verification email sent, please check your inbox'
-          );
-          this.sendingVerificationEmail = false;
-          this.showResendVerification = false;
-        })
-      );
+    // this.sendVerificationEmail$ = this.authenticationService
+    //   .sendOtpEmail({
+    //     email: this.loginForm.getRawValue().email,
+    //     type: OtpType.EMAIL_VERIFICATION,
+    //   })
+    //   .pipe(
+    //     tap(() => {
+    //       this.snackbar.open(
+    //         'Verification email sent, please check your inbox'
+    //       );
+    //       this.sendingVerificationEmail = false;
+    //       this.showResendVerification = false;
+    //     })
+    //   );
   }
 }

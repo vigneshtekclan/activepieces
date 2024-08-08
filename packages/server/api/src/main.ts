@@ -1,12 +1,12 @@
 import { logger, system, SystemProp } from '@activepieces/server-shared'
-import { ApEnvironment, isNil } from '@activepieces/shared'
+import { ApEnvironment } from '@activepieces/shared'
 import { FastifyInstance } from 'fastify'
 import { flowWorker } from 'server-worker'
 import { setupApp } from './app/app'
 import { databaseConnection } from './app/database/database-connection'
 import { seedDevData } from './app/database/seeds/dev-seeds'
-import { licenseKeysService } from './app/ee/license-keys/license-keys-service'
-import { platformService } from './app/platform/platform.service'
+// import { licenseKeysService } from './app/ee/license-keys/license-keys-service'
+// import { platformService } from './app/platform/platform.service'
 
 const start = async (app: FastifyInstance): Promise<void> => {
     try {
@@ -41,13 +41,13 @@ The application started on ${system.get(SystemProp.FRONTEND_URL)}, as specified 
                 `[WARNING]: This is only shows pieces specified in AP_DEV_PIECES ${pieces} environment variable.`,
             )
         }
-        const oldestPlatform = await platformService.getOldestPlatform()
-        if (!isNil(oldestPlatform)) {
-            await licenseKeysService.verifyKeyAndApplyLimits({
-                platformId: oldestPlatform.id,
-                license: system.get<string>(SystemProp.LICENSE_KEY),
-            })
-        }
+        // const oldestPlatform = await platformService.getOldestPlatform()
+        // if (!isNil(oldestPlatform)) {
+        //     await licenseKeysService.verifyKeyAndApplyLimits({
+        //         platformId: oldestPlatform.id,
+        //         license: system.get<string>(SystemProp.LICENSE_KEY),
+        //     })
+        // }
     }
     catch (err) {
         logger.error(err)

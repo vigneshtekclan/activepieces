@@ -1,6 +1,5 @@
 import { flowTimeoutSandbox, system, SystemProp, webhookSecretsUtils } from '@activepieces/server-shared'
 import { ApEdition, ApFlagId, Flag, isNil } from '@activepieces/shared'
-import axios from 'axios'
 import { webhookUtils } from 'server-worker'
 import { databaseConnection } from '../database/database-connection'
 import { FlagEntity } from './flag.entity'
@@ -26,7 +25,7 @@ export const flagService = {
         const created = now
         const updated = now
         const currentVersion = await this.getCurrentRelease()
-        const latestVersion = await this.getLatestRelease()
+        const latestVersion = await this.getCurrentRelease()
         flags.push(
             {
                 id: ApFlagId.ENVIRONMENT,
@@ -158,25 +157,25 @@ export const flagService = {
             },
             {
                 id: ApFlagId.PRIVATE_PIECES_ENABLED,
-                value: system.getEdition() !== ApEdition.COMMUNITY,
+                value: true,
                 created,
                 updated,
             },
-            {
-                id: ApFlagId.PRIVACY_POLICY_URL,
-                value: 'https://www.activepieces.com/privacy',
-                created,
-                updated,
-            },
-            {
-                id: ApFlagId.TERMS_OF_SERVICE_URL,
-                value: 'https://www.activepieces.com/terms',
-                created,
-                updated,
-            },
+            // {
+            //     id: ApFlagId.PRIVACY_POLICY_URL,
+            //     value: 'https://www.activepieces.com/privacy',
+            //     created,
+            //     updated,
+            // },
+            // {
+            //     id: ApFlagId.TERMS_OF_SERVICE_URL,
+            //     value: 'https://www.activepieces.com/terms',
+            //     created,
+            //     updated,
+            // },
             {
                 id: ApFlagId.TELEMETRY_ENABLED,
-                value: system.getBoolean(SystemProp.TELEMETRY_ENABLED) ?? true,
+                value: system.getBoolean(SystemProp.TELEMETRY_ENABLED) ?? false,
                 created,
                 updated,
             },
@@ -216,7 +215,7 @@ export const flagService = {
                 created,
                 updated,
             },
-            
+
         )
 
         return flags
@@ -240,17 +239,17 @@ export const flagService = {
         const packageJson = await import('package.json')
         return packageJson.version
     },
-    async getLatestRelease(): Promise<string> {
-        try {
-            const response = await axios.get<PackageJson>(
-                'https://raw.githubusercontent.com/activepieces/activepieces/main/package.json',
-            )
-            return response.data.version
-        }
-        catch (ex) {
-            return '0.0.0'
-        }
-    },
+    // async getLatestRelease(): Promise<string> {
+    //     try {
+    //         const response = await axios.get<PackageJson>(
+    //             'https://raw.githubusercontent.com/activepieces/activepieces/main/package.json',
+    //         )
+    //         return response.data.version
+    //     }
+    //     catch (ex) {
+    //         return '0.0.0'
+    //     }
+    // },
     isCloudPlatform(platformId: string | null): boolean {
         const cloudPlatformId = system.get(SystemProp.CLOUD_PLATFORM_ID)
         if (!cloudPlatformId || !platformId) {
@@ -269,8 +268,4 @@ export type FlagType =
 type BaseFlagStructure<K extends ApFlagId, V> = {
     id: K
     value: V
-}
-
-type PackageJson = {
-    version: string
 }

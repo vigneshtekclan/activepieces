@@ -21,10 +21,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {
   FlagService,
   AppearanceService,
-  environment,
-  PlatformService,
   FlowBuilderService,
   TelemetryService,
+  environment,
+  LocalesService,
+  PlatformService,
 } from '@activepieces/ui/common';
 import { compareVersions } from 'compare-versions';
 import { ApEdition, ApFlagId, LocalesEnum } from '@activepieces/shared';
@@ -32,7 +33,6 @@ import {
   EmbeddingService,
   AuthenticationService,
   fadeInUp400ms,
-  LocalesService,
 } from '@activepieces/ui/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Platform } from '@activepieces/shared';

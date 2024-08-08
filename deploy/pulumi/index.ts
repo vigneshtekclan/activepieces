@@ -428,7 +428,7 @@ const environmentVariables = [
     },
     {
         name: "AP_TEMPLATES_SOURCE_URL",
-        value: "https://cloud.activepieces.com/api/v1/flow-templates"
+        value: "/api/v1/flow-templates"
     }
 ];
 

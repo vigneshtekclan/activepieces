@@ -10,9 +10,9 @@ import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UiCommonModule } from '@activepieces/ui/common';
 import { UiFeaturePiecesModule } from '@activepieces/ui/feature-pieces';
-import { SyncProjectComponent } from '@activepieces/ui-feature-git-sync';
+// import { SyncProjectComponent } from '@activepieces/ui-feature-git-sync';
 import { GeneralSettingsComponent } from '../../components/general-settings/general-settings.component';
-import { AlertsTableComponent } from '../../components/alerts-table/alerts-table.component';
+// import { AlertsTableComponent } from '../../components/alerts-table/alerts-table.component';
 
 @Component({
   standalone: true,
@@ -21,10 +21,10 @@ import { AlertsTableComponent } from '../../components/alerts-table/alerts-table
   imports: [
     CommonModule,
     UiCommonModule,
-    SyncProjectComponent,
+    // SyncProjectComponent,
     UiFeaturePiecesModule,
     GeneralSettingsComponent,
-    AlertsTableComponent,
+    // AlertsTableComponent,
   ],
 })
 export class SettingsPageComponent implements AfterViewInit {

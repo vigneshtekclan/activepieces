@@ -1,4 +1,4 @@
-import { ApplicationEventName } from '@activepieces/ee-shared'
+// import { ApplicationEventName } from '@activepieces/ee-shared'
 import {
     CreateOrRenameFolderRequest,
     FolderId,
@@ -11,6 +11,7 @@ import { StatusCodes } from 'http-status-codes'
 import { entitiesMustBeOwnedByCurrentProject } from '../../authentication/authorization'
 import { eventsHooks } from '../../helper/application-events'
 import { flowFolderService as folderService } from './folder.service'
+import { ApplicationEventName } from '../../authentication/authentication.controller'
 
 const DEFAULT_PAGE_SIZE = 10
 

@@ -8,9 +8,9 @@ import {
 } from '@activepieces/shared';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { CreateFlowTemplateRequest } from '@activepieces/ee-shared';
+// import { CreateFlowTemplateRequest } from '@activepieces/ee-shared';
 import { FlagService } from './flag.service';
-
+// import mydata from './templates.json';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,11 +29,12 @@ export class TemplatesService {
       httpParams = httpParams.append('search', params.search);
     }
     httpParams.append('limit', '1000');
-    let url = environment.apiUrl + '/flow-templates';
+    const url = environment.apiUrl + '/flow-templates';
+    console.log(environment.apiUrl);
     return this.flagsService.getEdition().pipe(
       switchMap((ed) => {
         if (ed === ApEdition.COMMUNITY) {
-          url = 'https://cloud.activepieces.com/api/v1/flow-templates';
+          // url = 'https://cloud.activepieces.com/api/v1/flow-templates';
         }
         return this.http
           .get<SeekPage<FlowTemplate>>(url, {
@@ -44,12 +45,12 @@ export class TemplatesService {
     );
   }
 
-  create(request: CreateFlowTemplateRequest): Observable<FlowTemplate> {
-    return this.http.post<FlowTemplate>(
-      environment.apiUrl + '/flow-templates',
-      request
-    );
-  }
+  // create(request: CreateFlowTemplateRequest): Observable<FlowTemplate> {
+  //   return this.http.post<FlowTemplate>(
+  //     environment.apiUrl + '/flow-templates',
+  //     request
+  //   );
+  // }
 
   delete(id: string): Observable<void> {
     return this.http.delete<void>(environment.apiUrl + `/flow-templates/${id}`);

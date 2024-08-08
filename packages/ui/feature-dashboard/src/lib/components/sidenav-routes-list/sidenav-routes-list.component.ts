@@ -145,16 +145,16 @@ export class SidenavRoutesListComponent implements OnInit {
         showInSideNav$: of(true),
         showLock$: of(false),
       },
-      {
-        icon: 'assets/img/custom/dashboard/members.svg',
-        caption: $localize`Team`,
-        route: 'team',
-        showInSideNav$: this.embeddingService.getIsInEmbedding$().pipe(
-          take(1),
-          map((isInEmbedding) => !isInEmbedding)
-        ),
-        showLock$: this.platformService.projectRolesDisabled(),
-      },
+      // {
+      //   icon: 'assets/img/custom/dashboard/members.svg',
+      //   caption: $localize`Team`,
+      //   route: 'team',
+      //   showInSideNav$: this.embeddingService.getIsInEmbedding$().pipe(
+      //     take(1),
+      //     map((isInEmbedding) => !isInEmbedding)
+      //   ),
+      //   showLock$: this.platformService.projectRolesDisabled(),
+      // },
       {
         icon: 'assets/img/custom/dashboard/settings.svg',
         caption: $localize`Settings`,

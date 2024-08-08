@@ -31,18 +31,21 @@ import {
   PlatformRole,
   ProjectMemberRole,
 } from '@activepieces/shared';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { RolesDisplayNames } from 'ee-project-members';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+// import { RolesDisplayNames } from 'ee-project-members';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StatusCodes } from 'http-status-codes';
-import { UpgradeDialogComponent, UpgradeDialogData } from 'ee-billing-ui';
+// import { UpgradeDialogComponent, UpgradeDialogData } from 'ee-billing-ui';
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
+
+export const RolesDisplayNames: { [k: string]: string } = {
+  [ProjectMemberRole.ADMIN]: $localize`Admin`,
+  [ProjectMemberRole.EDITOR]: $localize`Editor`,
+  [ProjectMemberRole.OPERATOR]: $localize`Operator`,
+  [ProjectMemberRole.VIEWER]: $localize`Viewer`,
+};
 
 @Component({
   templateUrl: './invite-user-dialog.component.html',
@@ -86,7 +89,7 @@ export class InviteUserDialogComponent {
     private projectService: ProjectService,
     private authService: AuthenticationService,
     private matsnackBar: MatSnackBar,
-    private matDialog: MatDialog,
+    // private matDialog: MatDialog,
     private clipboard: Clipboard,
     private flagService: FlagService,
     private dialogRef: MatDialogRef<InviteUserDialogComponent>,
@@ -192,11 +195,11 @@ export class InviteUserDialogComponent {
           catchError((error) => {
             this.loading$.next(false);
             if (error.status === StatusCodes.PAYMENT_REQUIRED) {
-              const data: UpgradeDialogData = {
-                limitType: 'team',
-              };
+              // const data: UpgradeDialogData = {
+              //   limitType: 'team',
+              // };
               this.dialogRef.close();
-              this.matDialog.open(UpgradeDialogComponent, { data });
+              // this.matDialog.open(UpgradeDialogComponent, { data });
             }
             return of(undefined);
           })

@@ -1,0 +1,1692 @@
+{
+	"next": "bmV4dF91bmRlZmluZWQ=",
+	"previous": "cHJldl91bmRlZmluZWQ=",
+	"data": [
+		{
+			"id": "41Txbb9JfLbuhHYJOiNSE",
+			"created": "2023-10-28T15:37:01.177Z",
+			"updated": "2023-10-28T15:37:01.177Z",
+			"name": "Write long SEO articles by ChatGPT on WordPress",
+			"description": "This flow will generate a long SEO article, with its default settings, it will generate about 1,500 - 2,000 words article. It might run slow because it calls OpenAI multiple times. ⚠️ Don't forget to edit the settings in the Advanced Mapper step! 🔥 Feel free to change the last step to send wherever you want instead of Gmail.",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "tnGnN51XKttKFD0MBmM0k",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "41Txbb9JfLbuhHYJOiNSE",
+				"created": "2023-07-25T12:08:03.959Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"sheet_id": 0,
+							"spreadsheet_id": "1EXYFAHsjaONB16mM4hUqBFVj_r_gBqcZqsD76pOWSz0",
+							"include_team_drives": false
+						},
+						"pieceName": "@activepieces/piece-google-sheets",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_row",
+						"pieceVersion": "~0.5.1"
+					},
+					"nextAction": {
+						"name": "step_8",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"roles": [
+									{
+										"role": "system",
+										"content": "You are a helpful assistant."
+									}
+								],
+								"prompt": "Act as an SEO expert speaking fluent English to write only headings (h1, h2 and h3) for an article about \"{{trigger['values']['A']}}\", adhere to these guidelines: \"{{trigger['values']['B']}}\".\nReturn strictly only a JSON object that contains the attribute \"title\" with a rephrased SEO-optimized article title, and another attribute called \"outline\" that contains a flat array of exactly 5 items, each item is a top level (h2) headline of an article paragraph. The array will contain string items only. Don't include the word \"h2\" in any of the items, don't wrap titles in quotation marks, each heading is only the text of the heading."
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.3.6"
+						},
+						"nextAction": {
+							"name": "step_4",
+							"type": "CODE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"chatgpt": "{{step_8}}"
+								},
+								"sourceCode": {
+									"code": "export const code = async (params) => {\n    return { ...JSON.parse(params.chatgpt), num: Math.floor(Math.random() * 100000) };\n};\n",
+									"packageJson": "{\n  \"dependencies\": {\n  }\n}\n"
+								},
+								"inputUiInfo": {
+
+								},
+								"artifactSourceId": "ClznBfXEamYuf7OF06MvB"
+							},
+							"nextAction": {
+								"name": "step_2",
+								"type": "LOOP_ON_ITEMS",
+								"valid": true,
+								"settings": {
+									"items": "{{step_4.outline}}",
+									"inputUiInfo": {
+
+									}
+								},
+								"nextAction": {
+									"name": "step_12",
+									"type": "PIECE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"key": "content_{{step_4.num}}",
+											"store_scope": "FLOW"
+										},
+										"pieceName": "@activepieces/piece-store",
+										"pieceType": "OFFICIAL",
+										"actionName": "get",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.2.6"
+									},
+									"nextAction": {
+										"name": "step_1",
+										"type": "PIECE",
+										"valid": true,
+										"settings": {
+											"input": {
+												"title": "{{step_4}}",
+												"content": "{{step_12}}",
+												"ping_status": false,
+												"comment_status": false
+											},
+											"pieceName": "@activepieces/piece-wordpress",
+											"pieceType": "OFFICIAL",
+											"actionName": "create_post",
+											"inputUiInfo": {
+
+											},
+											"packageType": "REGISTRY",
+											"pieceVersion": "~0.3.3"
+										},
+										"nextAction": {
+											"name": "step_3",
+											"type": "PIECE",
+											"valid": true,
+											"settings": {
+												"input": {
+													"cc": [
+
+													],
+													"bcc": [
+
+													],
+													"subject": "[Approve Post] {{step_4.title}}",
+													"receiver": [
+														"team@example.com"
+													],
+													"reply_to": [
+
+													],
+													"body_text": "Hi moderator,\n\nA post under the title \"{{step_4.title}}\" was written in our blog. Take a look in your wordpress account and publish it.\n\n(Make sure you are logged in to see the post)"
+												},
+												"pieceName": "@activepieces/piece-gmail",
+												"pieceType": "OFFICIAL",
+												"actionName": "send_email",
+												"inputUiInfo": {
+
+												},
+												"packageType": "REGISTRY",
+												"pieceVersion": "~0.4.3"
+											},
+											"displayName": "Send Email"
+										},
+										"displayName": "Create Post"
+									},
+									"displayName": "Get"
+								},
+								"displayName": "Loop on Items",
+								"firstLoopAction": {
+									"name": "step_9",
+									"type": "PIECE",
+									"valid": false,
+									"settings": {
+										"input": {
+											"roles": [
+												{
+													"role": "system",
+													"content": "You are a helpful assistant."
+												}
+											],
+											"prompt": "Write the content of the section titled \"{{step_2.item}}\". You must adhere to these guidelines: \"{{trigger['values']['B']}}\". This section is part of a bigger article called \"{{step_4.title}}﻿\". Don't include the title in your output, only include the paragraphs content. Don't create a summary or conclusion paragraph. Use html tags for sub headings, create one level of sub headings only which is (h3). You can create two or three of these h3 subheadings. Don't make the subheadings sound too similar to the original section title provided to you."
+										},
+										"pieceName": "@activepieces/piece-openai",
+										"pieceType": "OFFICIAL",
+										"actionName": "ask_chatgpt",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.3.6"
+									},
+									"nextAction": {
+										"name": "step_6",
+										"type": "PIECE",
+										"valid": true,
+										"settings": {
+											"input": {
+												"key": "content_{{step_4.num}}",
+												"store_scope": "FLOW"
+											},
+											"pieceName": "@activepieces/piece-store",
+											"pieceType": "OFFICIAL",
+											"actionName": "get",
+											"inputUiInfo": {
+
+											},
+											"packageType": "REGISTRY",
+											"pieceVersion": "~0.2.6"
+										},
+										"nextAction": {
+											"name": "step_5",
+											"type": "PIECE",
+											"valid": true,
+											"settings": {
+												"input": {
+													"key": "content_{{step_4.num}}",
+													"value": "{{step_6}}<h2>{{step_2.item}}</h2>\n\n{{step_9}}",
+													"store_scope": "FLOW"
+												},
+												"pieceName": "@activepieces/piece-store",
+												"pieceType": "OFFICIAL",
+												"actionName": "put",
+												"inputUiInfo": {
+
+												},
+												"packageType": "REGISTRY",
+												"pieceVersion": "~0.2.6"
+											},
+											"displayName": "Put"
+										},
+										"displayName": "Get"
+									},
+									"displayName": "Ask ChatGPT"
+								}
+							},
+							"displayName": "Code"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "New Row"
+				},
+				"updated": "2023-09-02T13:28:25.527Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Write long SEO articles by ChatGPT on WordPress"
+			},
+			"tags": [
+
+			],
+			"pieces": [
+				"@activepieces/piece-google-sheets",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-store",
+				"@activepieces/piece-wordpress",
+				"@activepieces/piece-gmail"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/use-chatgpt-to-write-long-blog-posts-on-wordpress-1500-words"
+		},
+		{
+			"id": "vauarN0D9blTvM7OBcZgO",
+			"created": "2024-04-28T10:58:30.253Z",
+			"updated": "2024-04-28T10:58:30.253Z",
+			"name": "Save Typeform Submissions to Google Sheets",
+			"description": "If you want your Typeform submissions to be saved to a google sheet, this one is for you.\n\nThis template will help you do just that in addition to using OpenAI to describe the submission and send an email containing that description.\n\nCreated by: [Kevin_Alexander](https://community.activepieces.com/u/Kevin_Alexander)",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"valid": false,
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": false,
+					"settings": {
+						"input": {
+
+						},
+						"pieceName": "@activepieces/piece-typeform",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_submission",
+						"pieceVersion": "~0.3.4"
+					},
+					"nextAction": {
+						"name": "step_3",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"values": {
+
+								},
+								"as_string": false,
+								"first_row_headers": false,
+								"include_team_drives": false
+							},
+							"pieceName": "@activepieces/piece-google-sheets",
+							"pieceType": "OFFICIAL",
+							"actionName": "insert_row",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.10.1",
+							"errorHandlingOptions": {
+								"retryOnFailure": {
+									"value": false
+								},
+								"continueOnFailure": {
+									"value": false
+								}
+							}
+						},
+						"nextAction": {
+							"name": "step_4",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"json": "{{trigger}}"
+								},
+								"pieceName": "@activepieces/piece-json",
+								"pieceType": "OFFICIAL",
+								"actionName": "convert_json_to_text",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.0.2",
+								"errorHandlingOptions": {
+									"retryOnFailure": {
+										"value": false
+									},
+									"continueOnFailure": {
+										"value": false
+									}
+								}
+							},
+							"nextAction": {
+								"name": "step_1",
+								"type": "PIECE",
+								"valid": false,
+								"settings": {
+									"input": {
+										"topP": "1",
+										"model": "gpt-3.5-turbo",
+										"roles": [
+											{
+												"role": "system",
+												"content": "You are a helpful assistant."
+											}
+										],
+										"prompt": "Given this JSON file which is a form submission:\n{{step_4}}\nWrite an email which will be sent to PERSON_NAME in which you describe the submission",
+										"maxTokens": "2048",
+										"temperature": "0.9",
+										"presencePenalty": "0.6",
+										"frequencyPenalty": "0"
+									},
+									"pieceName": "@activepieces/piece-openai",
+									"pieceType": "OFFICIAL",
+									"actionName": "ask_chatgpt",
+									"inputUiInfo": {
+
+									},
+									"packageType": "REGISTRY",
+									"pieceVersion": "~0.3.22",
+									"errorHandlingOptions": {
+										"retryOnFailure": {
+											"value": false
+										},
+										"continueOnFailure": {
+											"value": false
+										}
+									}
+								},
+								"nextAction": {
+									"name": "step_2",
+									"type": "PIECE",
+									"valid": false,
+									"settings": {
+										"input": {
+											"cc": [
+
+											],
+											"bcc": [
+
+											],
+											"body": "{{step_1}}",
+											"receiver": [
+
+											],
+											"reply_to": [
+
+											],
+											"body_type": "plain_text"
+										},
+										"pieceName": "@activepieces/piece-gmail",
+										"pieceType": "OFFICIAL",
+										"actionName": "send_email",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.5.6",
+										"errorHandlingOptions": {
+											"retryOnFailure": {
+												"value": false
+											},
+											"continueOnFailure": {
+												"value": false
+											}
+										}
+									},
+									"displayName": "Send Email"
+								},
+								"displayName": "Write Email"
+							},
+							"displayName": "Convert Json to Text"
+						},
+						"displayName": "Insert Row"
+					},
+					"displayName": "New Submission"
+				},
+				"displayName": "Creates a Sheet Row & Sends Email When a New Typeform  Submission Is Received"
+			},
+			"tags": [
+				"Productivity "
+			],
+			"pieces": [
+				"@activepieces/piece-typeform",
+				"@activepieces/piece-google-sheets",
+				"@activepieces/piece-json",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-gmail"
+			],
+			"blogUrl": ""
+		},
+		{
+			"id": "KPZPDYTMWJRLTlSsvqKZT",
+			"created": "2023-07-25T12:29:06.766Z",
+			"updated": "2023-07-25T12:29:06.766Z",
+			"name": "Send ChatGPT welcome email to MailChimp new subscribers",
+			"description": "This flow monitors new subscribers to a MailChimp audience, sends their information to ChatGPT with some context and a personalisation request, and asks it to generate a welcome email to that user, then sends the email to the user with SendGrid.  ",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "S3Vo5E1thMYwrxkF4G12Y",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "KPZPDYTMWJRLTlSsvqKZT",
+				"created": "2023-07-25T12:07:43.522Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": false,
+					"settings": {
+						"input": {
+							"list_id": "2ae2f814cd"
+						},
+						"pieceName": "@activepieces/piece-mailchimp",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "subscribe",
+						"pieceVersion": "~0.2.1"
+					},
+					"nextAction": {
+						"name": "step_1",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"roles": [
+									{
+										"role": "system",
+										"content": "You are a helpful assistant."
+									},
+									{
+										"role": "user",
+										"content": "Who won the world series in 2020?"
+									},
+									{
+										"role": "assistant",
+										"content": "The Los Angeles Dodgers won the World Series in 2020."
+									}
+								],
+								"prompt": "Write a welcome email to this person:{{trigger}}\n\nStrictly return a JSON object that has two fields, \"subject\" and \"message\".\n\nPersonalize the message according to the person object above. Mention a unique historic event that happened on the same day of their registration in the past (only use accurate information for this).\n\nContext about our business (the senders of the email):\nWe are a group of readers, and the user has signed up for our weekly newsletter of book recommendation."
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.2.5"
+						},
+						"nextAction": {
+							"name": "step_3",
+							"type": "CODE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"chatgpt": "{{step_1}}"
+								},
+								"artifact": "UEsDBAoAAAAAAO4AJVcaCx9KUgAAAFIAAAAIAAAAaW5kZXgudHNleHBvcnQgY29uc3QgY29kZSA9IGFzeW5jIChpbnB1dHMpID0+IHsKICAgIHJldHVybiBKU09OLnBhcnNlKGlucHV0cy5jaGF0Z3B0KTsKfTsKUEsDBAoAAAAAAO4AJVcaUtEIHAAAABwAAAAMAAAAcGFja2FnZS5qc29uewogICJkZXBlbmRlbmNpZXMiOiB7CiAgfQp9ClBLAQIUAAoAAAAAAO4AJVcaCx9KUgAAAFIAAAAIAAAAAAAAAAAAAAAAAAAAAABpbmRleC50c1BLAQIUAAoAAAAAAO4AJVcaUtEIHAAAABwAAAAMAAAAAAAAAAAAAAAAAHgAAABwYWNrYWdlLmpzb25QSwUGAAAAAAIAAgBwAAAAvgAAAAAA",
+								"inputUiInfo": {
+
+								}
+							},
+							"nextAction": {
+								"name": "step_2",
+								"type": "PIECE",
+								"valid": false,
+								"settings": {
+									"input": {
+										"to": [
+											"{{trigger.data.email}}"
+										],
+										"from": "no-reply@example.com",
+										"content": "{{step_3.message}}",
+										"subject": "{{step_3.subject}}",
+										"from_name": "Our Business",
+										"content_type": "text"
+									},
+									"pieceName": "@activepieces/piece-sendgrid",
+									"pieceType": "OFFICIAL",
+									"actionName": "send_email",
+									"inputUiInfo": {
+
+									},
+									"packageType": "REGISTRY",
+									"pieceVersion": "~0.2.3"
+								},
+								"displayName": "Send Email"
+							},
+							"displayName": "Code"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "Member Subscribed to Audience"
+				},
+				"updated": "2023-09-05T00:07:30.451Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Send ChatGPT welcome email to MailChimp new subscribers"
+			},
+			"tags": [
+				"Marketing Automation",
+				"ChatGPT"
+			],
+			"pieces": [
+				"@activepieces/piece-mailchimp",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-sendgrid"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/send-a-personalized-welcome-email-using-chatgpt-to-new-mailchimp-subscribers"
+		},
+		{
+			"id": "oLOQkzUit6pFI6x2orOhl",
+			"created": "2023-10-28T15:37:40.480Z",
+			"updated": "2023-10-28T15:37:40.480Z",
+			"name": "Write long article with Claude to WordPress",
+			"description": "",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "BwxKmMKPcRNvIQDlcYOac",
+				"state": "DRAFT",
+				"valid": true,
+				"flowId": "oLOQkzUit6pFI6x2orOhl",
+				"created": "2023-09-25T23:25:09.259Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"timezone": "UTC",
+							"hour_of_the_day": 0,
+							"run_on_weekends": false
+						},
+						"pieceName": "@activepieces/piece-schedule",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "every_day",
+						"pieceVersion": "~0.1.1"
+					},
+					"nextAction": {
+						"name": "step_3",
+						"type": "PIECE",
+						"valid": true,
+						"settings": {
+							"input": {
+								"auth": "{{connections['google-sheets']}}",
+								"memKey": "row_numbr00000",
+								"sheet_id": 0,
+								"groupSize": "1",
+								"spreadsheet_id": "15yNDEAg1p9lEjnyDVK_fnc3lyar9nwvi5g-T7_yIWp4",
+								"include_team_drives": false
+							},
+							"pieceName": "@activepieces/piece-google-sheets",
+							"pieceType": "OFFICIAL",
+							"actionName": "get_next_rows",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.7.3"
+						},
+						"nextAction": {
+							"name": "step_2",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"auth": "{{connections['open-router']}}",
+									"model": "anthropic/claude-2",
+									"prompt": "Write a blog title about this idea: {{step_3[0]['values']['A']}}\n\nRespond with the generated title only without an introduction or quotation marks"
+								},
+								"pieceName": "@activepieces/piece-open-router",
+								"pieceType": "OFFICIAL",
+								"actionName": "ask-lmm",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.0.2"
+							},
+							"nextAction": {
+								"name": "step_1",
+								"type": "PIECE",
+								"valid": true,
+								"settings": {
+									"input": {
+										"auth": "{{connections['open-router']}}",
+										"model": "anthropic/claude-2",
+										"prompt": "Generate a JSON array of 5 headlines about a blog titled \"{{step_2}}\", the array will have string items\n\nRespond with the generated array only without an introduction or quotation marks"
+									},
+									"pieceName": "@activepieces/piece-open-router",
+									"pieceType": "OFFICIAL",
+									"actionName": "ask-lmm",
+									"inputUiInfo": {
+
+									},
+									"packageType": "REGISTRY",
+									"pieceVersion": "~0.0.2"
+								},
+								"nextAction": {
+									"name": "step_4",
+									"type": "CODE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"title": "{{step_2}}",
+											"outline": "{{step_1}}"
+										},
+										"sourceCode": {
+											"code": "export const code = async (inputs) => {\n    return {\n        \"title\": inputs.title.trim(),\n        \"outline\": JSON.parse(inputs.outline),\n        \"random\": Math.floor(Math.random() * 9001) + 1000\n    };\n};\n",
+											"packageJson": "{\n  \"dependencies\": {\n  }\n}\n"
+										},
+										"inputUiInfo": {
+
+										},
+										"artifactSourceId": "PRlE7VKVSOIqp1z23olRI"
+									},
+									"nextAction": {
+										"name": "step_5",
+										"type": "LOOP_ON_ITEMS",
+										"valid": true,
+										"settings": {
+											"items": "{{step_4['outline']}}",
+											"inputUiInfo": {
+
+											}
+										},
+										"nextAction": {
+											"name": "step_10",
+											"type": "PIECE",
+											"valid": true,
+											"settings": {
+												"input": {
+													"key": "article_{{step_4['random']}}",
+													"store_scope": "FLOW"
+												},
+												"pieceName": "@activepieces/piece-store",
+												"pieceType": "OFFICIAL",
+												"actionName": "get",
+												"inputUiInfo": {
+
+												},
+												"packageType": "REGISTRY",
+												"pieceVersion": "~0.4.0"
+											},
+											"nextAction": {
+												"name": "step_11",
+												"type": "PIECE",
+												"valid": true,
+												"settings": {
+													"input": {
+														"auth": "{{connections['wordpress']}}",
+														"title": "{{step_4['title']}}",
+														"content": "{{step_10}}",
+														"ping_status": false,
+														"comment_status": false
+													},
+													"pieceName": "@activepieces/piece-wordpress",
+													"pieceType": "OFFICIAL",
+													"actionName": "create_post",
+													"inputUiInfo": {
+
+													},
+													"packageType": "REGISTRY",
+													"pieceVersion": "~0.3.6"
+												},
+												"displayName": "Create Post"
+											},
+											"displayName": "Get full article"
+										},
+										"displayName": "Loop on Items",
+										"firstLoopAction": {
+											"name": "step_8",
+											"type": "PIECE",
+											"valid": true,
+											"settings": {
+												"input": {
+													"key": "article_{{step_4['random']}}",
+													"store_scope": "FLOW"
+												},
+												"pieceName": "@activepieces/piece-store",
+												"pieceType": "OFFICIAL",
+												"actionName": "get",
+												"inputUiInfo": {
+
+												},
+												"packageType": "REGISTRY",
+												"pieceVersion": "~0.4.0"
+											},
+											"nextAction": {
+												"name": "step_7",
+												"type": "PIECE",
+												"valid": true,
+												"settings": {
+													"input": {
+														"auth": "{{connections['open-router']}}",
+														"model": "anthropic/claude-2",
+														"prompt": "Write a section about \"{{step_5.item}}\" under the main title \"{{step_2}}\". Include two heading 3 titles with their paragraphs\n\nFormat headlines, bold and italic using HTML tags. Follow this structure:\n<h2>Section Title</h2>\n<h3>Paragraph 1 Title</h3>\nParagraph 1 content\n\n<h3>Paragraph 2 Title</h3>\nParagraph 2 content\n\n--\n\nFor reference, these are the previous sections:\n-- REFERENCE START --\n{{step_8}}\n-- REFERENCE END --\n\nRespond with the generated content only without an introduction or quotation marks"
+													},
+													"pieceName": "@activepieces/piece-open-router",
+													"pieceType": "OFFICIAL",
+													"actionName": "ask-lmm",
+													"inputUiInfo": {
+
+													},
+													"packageType": "REGISTRY",
+													"pieceVersion": "~0.0.2"
+												},
+												"nextAction": {
+													"name": "step_6",
+													"type": "PIECE",
+													"valid": true,
+													"settings": {
+														"input": {
+															"key": "article_{{step_4['random']}}",
+															"value": "{{step_7}}",
+															"separator": "\\n",
+															"store_scope": "FLOW"
+														},
+														"pieceName": "@activepieces/piece-store",
+														"pieceType": "OFFICIAL",
+														"actionName": "append",
+														"inputUiInfo": {
+
+														},
+														"packageType": "REGISTRY",
+														"pieceVersion": "~0.4.0"
+													},
+													"displayName": "Write section"
+												},
+												"displayName": "Ask LLM"
+											},
+											"displayName": "Get"
+										}
+									},
+									"displayName": "Ready title and outline"
+								},
+								"displayName": "Write outline"
+							},
+							"displayName": "Write title"
+						},
+						"displayName": "Get next row(s)"
+					},
+					"displayName": "Every Day"
+				},
+				"updated": "2023-09-26T22:06:45.415Z",
+				"updatedBy": "jkyODlUu67GMTgHnckSXQ",
+				"displayName": "Write long article with Claude to WordPress"
+			},
+			"tags": [
+
+			],
+			"pieces": [
+				"@activepieces/piece-schedule",
+				"@activepieces/piece-google-sheets",
+				"@activepieces/piece-open-router",
+				"@activepieces/piece-store",
+				"@activepieces/piece-wordpress"
+			],
+			"blogUrl": ""
+		},
+		{
+			"id": "iK9ktpb8OnzgdPGhPJeoD",
+			"created": "2023-07-25T12:04:38.851Z",
+			"updated": "2023-07-25T12:04:38.851Z",
+			"name": "Automate Blog Writing with AI: A Step by Step Guide using OpenAI",
+			"description": "ChatGPT is awesome, you can ask it to write a blog post for you, make some modifications and publish it. But if you have hundreds of ideas that you'd like to convert into blog posts, you will need something that runs in the background while you're on the beach (just kidding, you'll be buried under lots of other work 😳).",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "LC0Tb8B4TbX87cTMpzpNv",
+				"state": "DRAFT",
+				"valid": true,
+				"flowId": "iK9ktpb8OnzgdPGhPJeoD",
+				"created": "2023-07-25T11:24:56.291Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"auth": "{{connections['google-sheets']}}",
+							"sheet_id": 0,
+							"spreadsheet_id": "1IKfEZMSUthoP-OzSDkQR9g5u1ZSQpriZhXRuUhqS7Lo",
+							"max_rows_to_poll": "10",
+							"include_team_drives": false
+						},
+						"pieceName": "@activepieces/piece-google-sheets",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_row",
+						"pieceVersion": "~0.6.8"
+					},
+					"nextAction": {
+						"name": "step_6",
+						"type": "PIECE",
+						"valid": true,
+						"settings": {
+							"input": {
+								"auth": "{{connections['openai']}}",
+								"model": "gpt-3.5-turbo-0301",
+								"roles": [
+									{
+										"role": "system",
+										"content": "You are a helpful assistant."
+									}
+								],
+								"prompt": "Write a blog title about this idea: \"{{trigger['values']['A']}}\" and make sure it complies with these guidelines: {{trigger['values']['B']}}\n==\nRespond with the title without any quotation marks around it"
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.3.0"
+						},
+						"nextAction": {
+							"name": "step_1",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"auth": "{{connections['openai']}}",
+									"model": "gpt-3.5-turbo",
+									"prompt": "Write a blog post about this idea: \"{{trigger['values']['A']}}\" and make sure it complies with these guidelines: \"{{trigger['values']['B']}}\"\n==\nonly respond with the text of the post"
+								},
+								"pieceName": "@activepieces/piece-openai",
+								"pieceType": "OFFICIAL",
+								"actionName": "ask_chatgpt",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.3.0"
+							},
+							"nextAction": {
+								"name": "step_2",
+								"type": "PIECE",
+								"valid": true,
+								"settings": {
+									"input": {
+										"auth": null,
+										"title": "{{step_6}}",
+										"status": "draft",
+										"content": "{{step_1}}"
+									},
+									"pieceName": "@activepieces/piece-wordpress",
+									"pieceType": "OFFICIAL",
+									"actionName": "create_page",
+									"inputUiInfo": {
+
+									},
+									"packageType": "REGISTRY",
+									"pieceVersion": "~0.3.0"
+								},
+								"nextAction": {
+									"name": "step_5",
+									"type": "PIECE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"cc": [
+
+											],
+											"bcc": [
+
+											],
+											"subject": "\"{{step_1}}\" is ready for your review!",
+											"receiver": [
+												"blog@example.com"
+											],
+											"reply_to": [
+
+											],
+											"body_text": "Hi content team,\nA new blog post is ready for your review, please check your wordpress account"
+										},
+										"pieceName": "@activepieces/piece-gmail",
+										"pieceType": "OFFICIAL",
+										"actionName": "send_email",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.4.0"
+									},
+									"displayName": "Send Email"
+								},
+								"displayName": "Create Page"
+							},
+							"displayName": "Ask ChatGPT"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "New Row"
+				},
+				"updated": "2023-09-08T22:32:51.189Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Automate Blog Writing with AI: A Step by Step Guide using OpenAI"
+			},
+			"tags": [
+
+			],
+			"pieces": [
+				"@activepieces/piece-google-sheets",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-wordpress",
+				"@activepieces/piece-gmail"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/automate-blog-writing-with-ai-a-step-by-step-guide-using-openai"
+		},
+		{
+			"id": "Y1Tb3uIqGPvmPiX6R7giO",
+			"created": "2023-07-25T12:30:49.666Z",
+			"updated": "2023-07-25T12:30:49.666Z",
+			"name": "ChatGPT SNS Customer Service Agent",
+			"description": "This flow creates an SMS customer service agent powered by ChatGPT. It incorporates memory of the chat history and it's contextualized to the business. ",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "v4gnzyCPkbjcbIttlKub8",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "Y1Tb3uIqGPvmPiX6R7giO",
+				"created": "2023-07-25T12:09:24.623Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+
+						},
+						"pieceName": "@activepieces/piece-webhook",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "catch_request",
+						"pieceVersion": "~0.0.1"
+					},
+					"nextAction": {
+						"name": "step_3",
+						"type": "PIECE",
+						"valid": true,
+						"settings": {
+							"input": {
+								"key": "history_{{trigger.body.From.replace(\"+\",\"\")}}",
+								"store_scope": "FLOW"
+							},
+							"pieceName": "@activepieces/piece-store",
+							"pieceType": "OFFICIAL",
+							"actionName": "get",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.2.6"
+						},
+						"nextAction": {
+							"name": "step_1",
+							"type": "PIECE",
+							"valid": false,
+							"settings": {
+								"input": {
+									"prompt": "Act as a competent and friendly customer support agent who works at our business. You are the Agent and you are chatting with User. Complete the responses of the chat using the business information in the Business Details section. Carry on the conversation like you are chatting, don't make a conversation opener every time you chat unless necessary. If you can't the information in the Business Details, be conservative with your answer, don't give false information to User.\n\nBusiness Details\nStoreX is an IT repair shop, we specialize in repairing Apple devices. Only new devices are accepted. We open all days from 8am PT to 10pm PT. We're located in San Francisco and we're opening new branches soon, no locations are specified.\n\nChat History\n{{step_3}}\nUser: {{trigger.body.Body}}\nAgent: "
+								},
+								"pieceName": "@activepieces/piece-openai",
+								"pieceType": "OFFICIAL",
+								"actionName": "ask_chatgpt",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.2.5"
+							},
+							"nextAction": {
+								"name": "step_2",
+								"type": "PIECE",
+								"valid": false,
+								"settings": {
+									"input": {
+										"to": "{{trigger.body.From}}",
+										"body": "{{step_1}}",
+										"from": "+17873392236"
+									},
+									"pieceName": "@activepieces/piece-twilio",
+									"pieceType": "OFFICIAL",
+									"actionName": "send_sms",
+									"inputUiInfo": {
+
+									},
+									"packageType": "REGISTRY",
+									"pieceVersion": "~0.2.1"
+								},
+								"nextAction": {
+									"name": "step_4",
+									"type": "PIECE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"key": "history_{{trigger.body.From.replace(\"+\", \"\")}}",
+											"value": "{{step_3}}\nUser: {{trigger.body.Body}}\nAgent: {{step_1}}",
+											"store_scope": "FLOW"
+										},
+										"pieceName": "@activepieces/piece-store",
+										"pieceType": "OFFICIAL",
+										"actionName": "put",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.2.6"
+									},
+									"displayName": "Put"
+								},
+								"displayName": "Send SMS"
+							},
+							"displayName": "Ask ChatGPT"
+						},
+						"displayName": "Get"
+					},
+					"displayName": "Webhook Trigger"
+				},
+				"updated": "2023-08-05T14:29:34.095Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "ChatGPT SNS Customer Service Agent"
+			},
+			"tags": [
+				"Customer Service",
+				"ChatGPT",
+				""
+			],
+			"pieces": [
+				"@activepieces/piece-store",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-twilio"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/build-an-sms-chatgpt-customer-service-agent-in-10-minutes"
+		},
+		{
+			"id": "fgMj1CNBGvoUNyJok4VDe",
+			"created": "2023-07-25T12:38:14.334Z",
+			"updated": "2023-07-25T12:38:14.334Z",
+			"name": "Tweet engaging content using ChatGPT",
+			"description": "This flow will generate an engaging tweet every day and tweet it to your account to engage with your audience. The theme set in the template is Super Mario math puzzles for kids, but you can customize it to fit your business! ",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "MkkNSVUtVjDn9rMBih8Yn",
+				"state": "DRAFT",
+				"valid": true,
+				"flowId": "fgMj1CNBGvoUNyJok4VDe",
+				"created": "2023-07-25T12:08:18.743Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"hour_of_the_day": 17,
+							"run_on_weekends": false
+						},
+						"pieceName": "@activepieces/piece-schedule",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "every_day",
+						"pieceVersion": "~0.0.3"
+					},
+					"nextAction": {
+						"name": "step_3",
+						"type": "PIECE",
+						"valid": true,
+						"settings": {
+							"input": {
+								"auth": "{{connections['openai']}}",
+								"model": "gpt-3.5-turbo-0613",
+								"roles": [
+									{
+										"role": "system",
+										"content": "You are a helpful assistant."
+									}
+								],
+								"prompt": "Write a tweet that is a math puzzle to engage my audience. Puzzle level is age from 10 to 18. Make the puzzle sound like a little story. The story will always contain the super mario. Don't add single or double quotations around the text of the tweet, You must ensure it fits in 240 character maximum"
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.3.0"
+						},
+						"nextAction": {
+							"name": "step_2",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"auth": null,
+									"text": "{{step_3}}"
+								},
+								"pieceName": "@activepieces/piece-twitter",
+								"pieceType": "OFFICIAL",
+								"actionName": "create-tweet",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.1.0"
+							},
+							"displayName": "Create Tweet"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "Every Day"
+				},
+				"updated": "2023-08-31T02:45:57.481Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Tweet engaging content using ChatGPT"
+			},
+			"tags": [
+
+			],
+			"pieces": [
+				"@activepieces/piece-schedule",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-twitter"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/tweet-engaging-content-using-chatgpt-every-day  "
+		},
+		{
+			"id": "kI8FwhHbMU7YGbcThqnn1",
+			"created": "2023-07-25T12:37:10.034Z",
+			"updated": "2023-07-25T12:37:10.034Z",
+			"name": "ChatGPT sentiment analysis of Zendesk tickets in a Google Sheet",
+			"description": "This flow will read new tickets from your Zendesk account, analyze their sentiments and post the analysis to a Google Sheet in your account.",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "ZUnYf7ybnWX7CthHTGdCB",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "kI8FwhHbMU7YGbcThqnn1",
+				"created": "2023-07-25T12:08:30.761Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": false,
+					"settings": {
+						"input": {
+							"view_id": 360073022411
+						},
+						"pieceName": "@activepieces/piece-zendesk",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_ticket_in_view",
+						"pieceVersion": "~0.0.4"
+					},
+					"nextAction": {
+						"name": "step_1",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"prompt": "I'll give you a support ticket we received from a customer and I want you to classify it into one of the following categories:\nSatisfied, Upset, Angry, None\nYour response must be only one of these 4 exact words. Don't add a . in the end of the response\n\nTicket content:\n{{trigger.description}}"
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.2.5"
+						},
+						"nextAction": {
+							"name": "step_3",
+							"type": "PIECE",
+							"valid": false,
+							"settings": {
+								"input": {
+									"values": [
+										"{{trigger.via.source.from.name}}",
+										"{{trigger.via.source.from.address}}",
+										"{{trigger.subject}}",
+										"{{trigger.description}}",
+										"{{step_1}}",
+										"{{trigger.created_at}}"
+									],
+									"sheet_id": 0,
+									"spreadsheet_id": "1dA0TgkPENaREpdp2_idW0ooOPR7ORNrdkwuMgf6Axq4"
+								},
+								"pieceName": "@activepieces/piece-google-sheets",
+								"pieceType": "OFFICIAL",
+								"actionName": "insert_row",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "0.2.11"
+							},
+							"displayName": "Insert Row"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "Read Zendesk Tickets"
+				},
+				"updated": "2023-07-25T12:08:30.879Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "ChatGPT sentiment analysis of Zendesk tickets in a Google Sheet"
+			},
+			"tags": [
+				"ChatGPT",
+				"Analysis",
+				"Content Creation"
+			],
+			"pieces": [
+				"@activepieces/piece-zendesk",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-google-sheets"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/use-chatgpt-to-export-the-sentiments-of-your-zendesk-tickets-to-a-google-sheet "
+		},
+		{
+			"id": "UGHobBCFygpnETHhfrFzC",
+			"created": "2023-07-25T12:10:43.674Z",
+			"updated": "2023-07-25T12:10:43.674Z",
+			"name": "Translate RSS with ChatGPT and Tweet it",
+			"description": "Translate RSS Feeds",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "yUu6T98MEb9mTJUNCnGoF",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "UGHobBCFygpnETHhfrFzC",
+				"created": "2023-07-25T12:09:44.487Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"rss_feed_url": "https://rss.nytimes.com/services/xml/rss/nyt/Science.xml"
+						},
+						"pieceName": "@activepieces/piece-rss",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new-item",
+						"pieceVersion": "~0.2.4"
+					},
+					"nextAction": {
+						"name": "step_1",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"prompt": "Translate the following news title to Chinese, include 1 or 2 emojis in the output, and make it in the form of a Tweet. Don't include links in the Tweet.\n\nTitle: {{trigger.title}}\nSummary: {{trigger.summary}}\n\n--\nGenerate a one line Tweet. Never start or end the output with ' or \""
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.2.5"
+						},
+						"nextAction": {
+							"name": "step_2",
+							"type": "PIECE",
+							"valid": false,
+							"settings": {
+								"input": {
+									"text": "{{step_1}}"
+								},
+								"pieceName": "@activepieces/piece-twitter",
+								"pieceType": "OFFICIAL",
+								"actionName": "create-tweet",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.0.2"
+							},
+							"displayName": "Create Tweet"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "New Item In Feed"
+				},
+				"updated": "2023-07-25T12:10:29.966Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Translate RSS with ChatGPT and Tweet it"
+			},
+			"tags": [
+				""
+			],
+			"pieces": [
+				"@activepieces/piece-rss",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-twitter"
+			],
+			"blogUrl": ""
+		},
+		{
+			"id": "1lIjsujGAt54frEMMdOxj",
+			"created": "2023-07-25T12:39:09.314Z",
+			"updated": "2023-07-25T12:39:09.314Z",
+			"name": "Tweet new WordPress posts with ChatGPT",
+			"description": "This flow runs when a new post is submitted to your WordPress blog, creates a Tweet about it using ChatGPT and post it to your Twitter account. ",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"id": "zp34ZAa3oigofRUEJP4Tu",
+				"state": "DRAFT",
+				"valid": false,
+				"flowId": "1lIjsujGAt54frEMMdOxj",
+				"created": "2023-07-25T12:07:55.115Z",
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+							"auth": "{{connections['wordpress']}}",
+							"authors": 1
+						},
+						"pieceName": "@activepieces/piece-wordpress",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_post",
+						"pieceVersion": "~0.3.5"
+					},
+					"nextAction": {
+						"name": "step_1",
+						"type": "PIECE",
+						"valid": false,
+						"settings": {
+							"input": {
+								"roles": [
+									{
+										"role": "system",
+										"content": "You are a helpful assistant."
+									},
+									{
+										"role": "user",
+										"content": "Who won the world series in 2020?"
+									},
+									{
+										"role": "assistant",
+										"content": "The Los Angeles Dodgers won the World Series in 2020."
+									}
+								],
+								"prompt": "For the following post (title and content), generate a random Tweet to spread the word about it. Make the Tweet cool and engaging. Include the post link in the tweet.\n\n--\n\nPost Title: {{trigger['title']['rendered']}}\nPost Content: {{trigger['content']['rendered']}}\nPost Link: {{trigger['link']}}\n\n--\n\nGenerate 1 line output without new lines. Don't start the response neither end it with \" or '"
+							},
+							"pieceName": "@activepieces/piece-openai",
+							"pieceType": "OFFICIAL",
+							"actionName": "ask_chatgpt",
+							"inputUiInfo": {
+
+							},
+							"packageType": "REGISTRY",
+							"pieceVersion": "~0.2.5"
+						},
+						"nextAction": {
+							"name": "step_2",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"text": "{{step_1}}"
+								},
+								"pieceName": "@activepieces/piece-twitter",
+								"pieceType": "OFFICIAL",
+								"actionName": "create-tweet",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.1.5"
+							},
+							"displayName": "Create Tweet"
+						},
+						"displayName": "Ask ChatGPT"
+					},
+					"displayName": "New Post"
+				},
+				"updated": "2023-09-10T22:27:18.354Z",
+				"updatedBy": "3RxZSUzKTdMykMXKENEVv",
+				"displayName": "Tweet new WordPress posts with ChatGPT"
+			},
+			"tags": [
+				"Content Creation",
+				"Social Media",
+				"ChatGPT"
+			],
+			"pieces": [
+				"@activepieces/piece-wordpress",
+				"@activepieces/piece-openai",
+				"@activepieces/piece-twitter"
+			],
+			"blogUrl": "https://www.activepieces.com/blog/tweet-about-new-wordpress-blogs-using-chatgpt-automatically"
+		},
+		{
+			"id": "UQkvmtMmenchFlLTibjIO",
+			"created": "2024-04-28T11:00:06.394Z",
+			"updated": "2024-04-28T11:00:06.394Z",
+			"name": "Telegram - Airtable Order Tracking Bot",
+			"description": "This Telegram bot offers a streamlined experience for users seeking to connect with a business and access their contact information efficiently.\n\nFeatures:\nWhen a user input \"contact\", the bot promptly responds with a message providing the business contact info.\n\nFor queries other than \"contact\" the bot connects to the Airtable database to perform a search. If a matching entry is found, the bot displays the information on Telegram, providing users with the desired result.\n\nIf the user sends something other than \"contact\" the bot expects the message to be an order ID, which the bot looks up in an Airtable database, responding to the user with the order info it found.\n\nHowever, if no order is found, the bot sends a message stating \"Nothing found\", ensuring the user is promptly informed of the search outcome.\n\nThe Airtable database has these fields:\n\n1.Name\n2.Notes\n3.Status\n4.OrderID\n\nCreated by: [G_M](https://community.activepieces.com/u/g_m/summary)\n",
+			"type": "PLATFORM",
+			"platformId": "NgixMLyPUxy1ZgCcxw5cM",
+			"projectId": "zfpwBnrwfO7F1yZLEWmWj",
+			"template": {
+				"valid": true,
+				"trigger": {
+					"name": "trigger",
+					"type": "PIECE_TRIGGER",
+					"valid": true,
+					"settings": {
+						"input": {
+
+						},
+						"pieceName": "@activepieces/piece-telegram-bot",
+						"pieceType": "OFFICIAL",
+						"inputUiInfo": {
+
+						},
+						"packageType": "REGISTRY",
+						"triggerName": "new_telegram_message",
+						"pieceVersion": "~0.3.13"
+					},
+					"nextAction": {
+						"name": "step_1",
+						"type": "BRANCH",
+						"valid": true,
+						"settings": {
+							"conditions": [
+								[
+									{
+										"operator": "TEXT_CONTAINS",
+										"firstValue": "{{trigger}}{{trigger['message']['text']}}",
+										"secondValue": "contact",
+										"caseSensitive": false
+									}
+								]
+							],
+							"inputUiInfo": {
+
+							}
+						},
+						"displayName": "Is Asking for Contact Info?",
+						"onFailureAction": {
+							"name": "step_4",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"base": "app3EsPM7ohWMQy3P",
+									"tableId": "tblf57X4m8oMSYMUB",
+									"searchField": "OrderID",
+									"searchValue": "{{trigger['message']['text']}}"
+								},
+								"pieceName": "@activepieces/piece-airtable",
+								"pieceType": "OFFICIAL",
+								"actionName": "airtable_find_record",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.4.14",
+								"errorHandlingOptions": {
+									"retryOnFailure": {
+										"value": false
+									},
+									"continueOnFailure": {
+										"value": false
+									}
+								}
+							},
+							"nextAction": {
+								"name": "step_5",
+								"type": "BRANCH",
+								"valid": true,
+								"settings": {
+									"conditions": [
+										[
+											{
+												"operator": "TEXT_EXACTLY_MATCHES",
+												"firstValue": "{{trigger['message']['text']}}",
+												"secondValue": "{{step_4[0]['fields']['OrderID']}}",
+												"caseSensitive": false
+											}
+										]
+									],
+									"inputUiInfo": {
+
+									}
+								},
+								"displayName": "Does Order Exist?",
+								"onFailureAction": {
+									"name": "step_6",
+									"type": "PIECE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"media": {
+												"animationUrl": "https://c.tenor.com/lx2WSGRk8bcAAAAC/tenor.gif"
+											},
+											"format": "MarkdownV2",
+											"chat_id": "{{trigger['message']['chat']['id']}}",
+											"message": "Nothing found :\\(",
+											"media_type": "animation"
+										},
+										"pieceName": "@activepieces/piece-telegram-bot",
+										"pieceType": "OFFICIAL",
+										"actionName": "send_media",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.3.13",
+										"errorHandlingOptions": {
+											"retryOnFailure": {
+												"value": false
+											},
+											"continueOnFailure": {
+												"value": false
+											}
+										}
+									},
+									"displayName": "Order Not Found"
+								},
+								"onSuccessAction": {
+									"name": "step_2",
+									"type": "PIECE",
+									"valid": true,
+									"settings": {
+										"input": {
+											"media": {
+												"photoUrl": "https://images.unsplash.com/photo-1503876466-1fc5143eda57?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fG1lc3NhZ2V8ZW58MHwwfDB8fHwy"
+											},
+											"format": "MarkdownV2",
+											"chat_id": "{{trigger['message']['chat']['id']}}",
+											"message": "Order ID \\- {{step_4[0]['fields']['OrderID']}}\nName \\- {{step_4[0]['fields']['Name']}}\nNotes \\- {{step_4[0]['fields']['Notes']}}\nStatus \\- {{step_4[0]['fields']['Status']}}\n\nThat's All\\.",
+											"media_type": "photo"
+										},
+										"pieceName": "@activepieces/piece-telegram-bot",
+										"pieceType": "OFFICIAL",
+										"actionName": "send_media",
+										"inputUiInfo": {
+
+										},
+										"packageType": "REGISTRY",
+										"pieceVersion": "~0.3.13",
+										"errorHandlingOptions": {
+											"retryOnFailure": {
+												"value": false
+											},
+											"continueOnFailure": {
+												"value": false
+											}
+										}
+									},
+									"displayName": "Send Order Info"
+								}
+							},
+							"displayName": "Find Order Record"
+						},
+						"onSuccessAction": {
+							"name": "step_3",
+							"type": "PIECE",
+							"valid": true,
+							"settings": {
+								"input": {
+									"format": "MarkdownV2",
+									"chat_id": "{{trigger['message']['chat']['id']}}",
+									"message": "📢 Need to get in touch with Anonymous Contact\\? Here's how you can reach us:\n1\\. 📱 Telegram: @AnonymousContact2982\n2\\. 📱 WhatsApp: \\+910000000000\n3\\. 🐦 Twitter: Twitter\\.com/anonymouscontact \n4\\. 📘 Facebook: Facebook\\.com/anonymouscontact\n5\\. 📸 Instagram: Instagram\\.com/anonymouscontact \n6\\. 📌 Pinterest: Pinterest\\.com/anonymouscontact\n📧 Email:\nsupport@Anonymouscontact\\.biz\ninfo@Anonymouscontact\\.com\n💻 Website: www\\.AnonymousContact\\.biz \n📝 Contact Form:  www\\.AnonymousContact\\.biz/Contact\\-Us \nWe're here to assist you with all your needs\\!"
+								},
+								"pieceName": "@activepieces/piece-telegram-bot",
+								"pieceType": "OFFICIAL",
+								"actionName": "send_text_message",
+								"inputUiInfo": {
+
+								},
+								"packageType": "REGISTRY",
+								"pieceVersion": "~0.3.13",
+								"errorHandlingOptions": {
+									"retryOnFailure": {
+										"value": false
+									},
+									"continueOnFailure": {
+										"value": false
+									}
+								}
+							},
+							"displayName": "Send Your Contact Info"
+						}
+					},
+					"displayName": "New Message"
+				},
+				"displayName": "Telegram - Airtable Order Tracking Bot"
+			},
+			"tags": [
+				"Notifications ",
+				"ECommerce "
+			],
+			"pieces": [
+				"@activepieces/piece-telegram-bot",
+				"@activepieces/piece-airtable"
+			],
+			"blogUrl": ""
+		}
+	]
+}

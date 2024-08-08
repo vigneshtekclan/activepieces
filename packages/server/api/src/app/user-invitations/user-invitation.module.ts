@@ -2,9 +2,9 @@ import { AcceptUserInvitationRequest, ALL_PRINCIPAL_TYPES, InvitationType, ListU
 import { FastifyPluginAsyncTypebox, Type } from '@fastify/type-provider-typebox'
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { StatusCodes } from 'http-status-codes'
-import { platformMustBeOwnedByCurrentUser, platformMustHaveFeatureEnabled } from '../ee/authentication/ee-authorization'
-import { assertRoleHasPermission } from '../ee/authentication/rbac/rbac-middleware'
-import { projectMembersLimit } from '../ee/project-plan/members-limit'
+// import { platformMustBeOwnedByCurrentUser, platformMustHaveFeatureEnabled } from '../ee/authentication/ee-authorization'
+// import { assertRoleHasPermission } from '../ee/authentication/rbac/rbac-middleware'
+// import { projectMembersLimit } from '../ee/project-plan/members-limit'
 import { userInvitationsService } from './user-invitation.service'
 
 
@@ -20,11 +20,11 @@ const invitationController: FastifyPluginAsyncTypebox = async (
         await assertPermission(app, request, reply, request.body.type)
         const { email, platformRole, projectRole, type } = request.body
         if (type === InvitationType.PROJECT) {
-            await projectMembersLimit.limit({
-                projectId: request.principal.projectId,
-                platformId: request.principal.platform.id,
-                role: projectRole!,
-            })
+            // await projectMembersLimit.limit({
+            //     projectId: request.principal.projectId,
+            //     platformId: request.principal.platform.id,
+            //     role: projectRole!,
+            // })
         }
         const platformId = request.principal.platform.id
         const projectId = request.principal.projectId
@@ -45,7 +45,7 @@ const invitationController: FastifyPluginAsyncTypebox = async (
             projectId: request.query.type === InvitationType.PROJECT ? request.principal.projectId : null,
             type: request.query.type,
             status: request.query.status,
-            cursor: request.query.cursor ?? null, 
+            cursor: request.query.cursor ?? null,
             limit: request.query.limit ?? 10,
         })
         await reply.status(StatusCodes.OK).send(invitations)
@@ -73,11 +73,11 @@ const invitationController: FastifyPluginAsyncTypebox = async (
 async function assertPermission(fastify: FastifyInstance, request: FastifyRequest, reply: FastifyReply, invitationType: InvitationType): Promise<void> {
     switch (invitationType) {
         case InvitationType.PLATFORM:
-            await platformMustBeOwnedByCurrentUser.call(fastify, request, reply)
+            // await platformMustBeOwnedByCurrentUser.call(fastify, request, reply)
             break
         case InvitationType.PROJECT:
-            await platformMustHaveFeatureEnabled((platform) => platform.projectRolesEnabled).call(fastify, request, reply)
-            await assertRoleHasPermission(request.principal, Permission.WRITE_INVITATION)
+            // await platformMustHaveFeatureEnabled((platform) => platform.projectRolesEnabled).call(fastify, request, reply)
+            // await assertRoleHasPermission(request.principal, Permission.WRITE_INVITATION)
             break
     }
 }

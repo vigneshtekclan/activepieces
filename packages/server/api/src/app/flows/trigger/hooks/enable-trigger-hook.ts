@@ -1,4 +1,4 @@
-import { DEFAULT_FREE_PLAN_LIMIT } from '@activepieces/ee-shared'
+// import { DEFAULT_FREE_PLAN_LIMIT } from '@activepieces/ee-shared'
 import {
     TriggerStrategy,
     WebhookRenewStrategy,
@@ -26,7 +26,7 @@ import {
     webhookUtils,
 } from 'server-worker'
 import { appEventRoutingService } from '../../../app-event-routing/app-event-routing.service'
-import { projectLimitsService } from '../../../ee/project-plan/project-plan.service'
+// import { projectLimitsService } from '../../../ee/project-plan/project-plan.service'
 import { flowQueue } from '../../../flow-worker/queue'
 import {
     generateEngineToken,
@@ -131,11 +131,11 @@ EngineHelperTriggerResult<TriggerHookType.ON_ENABLE>
                     timezone: 'UTC',
                 }
                 // BEGIN EE
-                const edition = system.getEdition()
-                if (edition === ApEdition.CLOUD) {
-                    const plan = await projectLimitsService.getOrCreateDefaultPlan(projectId, DEFAULT_FREE_PLAN_LIMIT)
-                    engineHelperResponse.result.scheduleOptions.cronExpression = constructEveryXMinuteCron(plan.minimumPollingInterval)
-                }
+                // const edition = system.getEdition()
+                // if (edition === ApEdition.CLOUD) {
+                //     const plan = await projectLimitsService.getOrCreateDefaultPlan(projectId, DEFAULT_FREE_PLAN_LIMIT)
+                //     engineHelperResponse.result.scheduleOptions.cronExpression = constructEveryXMinuteCron(plan.minimumPollingInterval)
+                // }
                 // END EE
             }
             await flowQueue.add({

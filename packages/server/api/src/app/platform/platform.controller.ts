@@ -12,12 +12,12 @@ import {
     Type,
 } from '@fastify/type-provider-typebox'
 import { StatusCodes } from 'http-status-codes'
-import { platformMustBeOwnedByCurrentUser } from '../ee/authentication/ee-authorization'
+// import { platformMustBeOwnedByCurrentUser } from '../ee/authentication/ee-authorization'
 import { platformService } from './platform.service'
 
 export const platformController: FastifyPluginAsyncTypebox = async (app) => {
     app.post('/:id', UpdatePlatformRequest, async (req, res) => {
-        await platformMustBeOwnedByCurrentUser.call(app, req, res)
+        // await platformMustBeOwnedByCurrentUser.call(app, req, res)
         return platformService.update({
             id: req.params.id,
             ...req.body,

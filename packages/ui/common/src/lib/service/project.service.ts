@@ -16,12 +16,30 @@ import {
   ProjectWithLimits,
   SeekPage,
 } from '@activepieces/shared';
-import {
-  CreatePlatformProjectRequest,
-  UpdateProjectPlatformRequest,
-} from '@activepieces/ee-shared';
+// import {
+//   CreatePlatformProjectRequest,
+//   UpdateProjectPlatformRequest,
+// } from '@activepieces/ee-shared';
 import { environment } from '../environments/environment';
 import { AuthenticationService } from './authentication.service';
+import { Static, Type } from '@sinclair/typebox';
+import { NotificationStatus, PiecesFilterType } from '@activepieces/shared';
+
+export const UpdateProjectPlatformRequest = Type.Object({
+  notifyStatus: Type.Optional(Type.Enum(NotificationStatus)),
+  displayName: Type.Optional(Type.String()),
+  plan: Type.Optional(
+    Type.Object({
+      tasks: Type.Optional(Type.Number({})),
+      pieces: Type.Optional(Type.Array(Type.String({}))),
+      piecesFilterType: Type.Optional(Type.Enum(PiecesFilterType)),
+    })
+  ),
+});
+
+export type UpdateProjectPlatformRequest = Static<
+  typeof UpdateProjectPlatformRequest
+>;
 
 @Injectable({
   providedIn: 'root',
@@ -59,12 +77,12 @@ export class ProjectService {
     );
   }
 
-  create(req: CreatePlatformProjectRequest) {
-    return this.http.post<ProjectWithLimits>(
-      environment.apiUrl + '/projects/',
-      req
-    );
-  }
+  // create(req: CreatePlatformProjectRequest) {
+  //   return this.http.post<ProjectWithLimits>(
+  //     environment.apiUrl + '/projects/',
+  //     req
+  //   );
+  // }
 
   update(
     projectId: ProjectId,

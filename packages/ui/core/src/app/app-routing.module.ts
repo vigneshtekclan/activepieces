@@ -9,10 +9,10 @@ import { ImportFlowUriEncodedComponent } from './modules/import-flow-uri-encoded
 import { ImportFlowComponent } from './modules/import-flow/import-flow.component';
 import { RedirectUrlComponent } from './modules/redirect-url/redirect-url.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
-import {
-  EmbedRedirectComponent,
-  EmbeddedConnectionDialogComponent,
-} from 'ee-components';
+// import {
+//   EmbedRedirectComponent,
+//   EmbeddedConnectionDialogComponent,
+// } from 'ee-components';
 import { ApEdition } from '@activepieces/shared';
 import { FormsComponent } from './modules/forms/forms.component';
 import {
@@ -53,21 +53,21 @@ export const routes: Routes = [
     path: 'redirect',
     component: RedirectUrlComponent,
   },
-  {
-    path: 'embed',
-    component: EmbedRedirectComponent,
-    canActivate: [
-      showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
-    ],
-  },
-  {
-    path: 'embed/connections',
-    component: EmbeddedConnectionDialogComponent,
-    canActivate: [
-      showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
-      UserLoggedInGuard,
-    ],
-  },
+  // {
+  //   path: 'embed',
+  //   component: EmbedRedirectComponent,
+  //   canActivate: [
+  //     showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
+  //   ],
+  // },
+  // {
+  //   path: 'embed/connections',
+  //   component: EmbeddedConnectionDialogComponent,
+  //   canActivate: [
+  //     showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
+  //     UserLoggedInGuard,
+  //   ],
+  // },
   {
     canActivate: [UserLoggedInGuard],
     path: '',
@@ -84,14 +84,14 @@ export const routes: Routes = [
         (m) => m.UiFeatureFlowBuilderModule
       ),
   },
-  {
-    path: '',
-    loadChildren: () =>
-      import('ee-project-members').then((m) => m.EeProjectMembersModule),
-    canActivate: [
-      showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
-    ],
-  },
+  // {
+  //   path: '',
+  //   loadChildren: () =>
+  //     import('ee-project-members').then((m) => m.EeProjectMembersModule),
+  //   canActivate: [
+  //     showBasedOnEditionGuard([ApEdition.ENTERPRISE, ApEdition.CLOUD]),
+  //   ],
+  // },
 
   {
     path: 'forms/:flowId',

@@ -14,7 +14,6 @@ import {
   PieceTriggerSettings,
   StepOutputStatus,
   FlowRunStatus,
-  Permission,
 } from '@activepieces/shared';
 import { ViewModeEnum } from '../../model/enums/view-mode.enum';
 import { ActionType, TriggerType } from '@activepieces/shared';
@@ -22,10 +21,7 @@ import { Step, StepMetaDataForMentions } from '../../model/step';
 import { FlowStructureUtil } from '../../utils/flowStructureUtil';
 import { BuilderSavingStatusEnum, CanvasState } from '../../model';
 import { StepRunResult } from '../../utils/stepRunResult';
-import {
-  VersionHisoricalStatus,
-  doesUserHavePermission,
-} from '@activepieces/ui/common';
+import { VersionHisoricalStatus } from '@activepieces/ui/common';
 
 export const BUILDER_STATE_NAME = 'builderState';
 export const selectGlobalBuilderState =
@@ -77,8 +73,7 @@ const selectIsInPublishedVersionViewMode = createSelector(
 const selectReadOnly = createSelector(
   selectGlobalBuilderState,
   (state: GlobalBuilderState) =>
-    state.viewMode !== ViewModeEnum.BUILDING ||
-    !doesUserHavePermission(Permission.WRITE_FLOW)
+    state.viewMode !== ViewModeEnum.BUILDING || false
 );
 
 const selectShowIncompleteStepsWidget = createSelector(

@@ -1,6 +1,7 @@
-import { ApplicationEventName, SigningKey } from '@activepieces/ee-shared'
+// import { ApplicationEventName, SigningKey } from '@activepieces/ee-shared'
 import { AppConnection, FlowOperationRequest, Folder, PopulatedFlow } from '@activepieces/shared'
 import { FastifyRequest } from 'fastify'
+import { ApplicationEventName } from '../../authentication/authentication.controller'
 
 export type CreateAuditEventParam =
   | {
@@ -51,7 +52,7 @@ export type CreateAuditEventParam =
   } | {
       action: ApplicationEventName.CREATED_SIGNING_KEY
       userId: string
-      signingKey: SigningKey
+    //   signingKey: SigningKey
   }
 
 let hooks: ApplicationEventHooks = {

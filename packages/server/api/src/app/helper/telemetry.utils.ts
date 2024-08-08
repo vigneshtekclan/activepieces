@@ -5,7 +5,8 @@ import { flagService } from '../flags/flag.service'
 import { platformService } from '../platform/platform.service'
 import { projectService } from '../project/project-service'
 
-const telemetryEnabled = system.getBoolean(SystemProp.TELEMETRY_ENABLED)
+// const telemetryEnabled = system.getBoolean(SystemProp.TELEMETRY_ENABLED)
+const telemetryEnabled = false
 
 const analytics = new Analytics({ writeKey: '42TtMD2Fh9PEIcDO2CagCGFmtoPwOmqK' })
 

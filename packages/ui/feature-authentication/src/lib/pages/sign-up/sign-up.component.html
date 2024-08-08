@@ -2,7 +2,7 @@
   <div class="ap-typography-headline-5 ap-text-center ap-mb-4 md" i18n>
     Let's Get Started!
   </div>
-  <ap-third-party-auth [isForSignup]="true"></ap-third-party-auth>
+  <!-- <ap-third-party-auth [isForSignup]="true"></ap-third-party-auth> -->
   <app-authentication-methods-separator></app-authentication-methods-separator>
   <form *ngIf="emailLoginsEnabled$ | async" [formGroup]="registrationForm" (ngSubmit)="signUp()"
     class="ap-flex ap-flex-col ap-gap-2">
@@ -151,8 +151,8 @@
 
 
 <ng-template #verificationTemplate>
-  <app-send-email-for-auth-action [email]="registrationForm.value.email!"
-    [otpType]="OtpType.EMAIL_VERIFICATION"></app-send-email-for-auth-action>
+  <!-- <app-send-email-for-auth-action [email]="registrationForm.value.email!"
+    [otpType]="OtpType.EMAIL_VERIFICATION"></app-send-email-for-auth-action> -->
 </ng-template>
 
 <ng-container *ngIf="signUp$ | async"></ng-container>

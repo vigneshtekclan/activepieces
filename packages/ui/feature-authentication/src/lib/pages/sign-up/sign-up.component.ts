@@ -24,7 +24,7 @@ import {
   ErrorCode,
   SignUpRequest,
 } from '@activepieces/shared';
-import { OtpType } from '@activepieces/ee-shared';
+// import { OtpType } from '@activepieces/ee-shared';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { StatusCodes } from 'http-status-codes';
 
@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit {
   domainIsNotAllowed = false;
   showNewsLetterCheckbox$: Observable<boolean>;
   emailLoginsEnabled$: Observable<boolean>;
-  readonly OtpType = OtpType;
+  // readonly OtpType = OtpType;
   constructor(
     private formBuilder: FormBuilder,
     public flagService: FlagService,

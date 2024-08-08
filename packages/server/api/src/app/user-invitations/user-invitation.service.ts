@@ -4,16 +4,69 @@ import dayjs from 'dayjs'
 import { IsNull, MoreThanOrEqual } from 'typeorm'
 
 import { databaseConnection } from '../database/database-connection'
-import { smtpEmailSender } from '../ee/helper/email/email-sender/smtp-email-sender'
-import { emailService } from '../ee/helper/email/email-service'
-import { platformDomainHelper } from '../ee/helper/platform-domain-helper'
-import { projectMemberService } from '../ee/project-members/project-member.service'
+// import { smtpEmailSender } from '../ee/helper/email/email-sender/smtp-email-sender'
+// import { emailService } from '../ee/helper/email/email-service'
+// import { platformDomainHelper } from '../ee/helper/platform-domain-helper'
+// import { projectMemberService } from '../ee/project-members/project-member.service'
 import { jwtUtils } from '../helper/jwt-utils'
 import { buildPaginator } from '../helper/pagination/build-paginator'
 import { paginationHelper } from '../helper/pagination/pagination-utils'
 import { platformService } from '../platform/platform.service'
 import { userService } from '../user/user-service'
 import { UserInvitationEntity } from './user-invitation.entity'
+import { system, SystemProp } from '@activepieces/server-shared'
+
+
+export const platformDomainHelper = {
+    async constructUrlFrom({
+        platformId,
+        path,
+    }: {
+        platformId: string | undefined | null
+        path: string
+    }): Promise<string> {
+        const domain = await getFrontendDomain(platformId)
+        return `${domain}${path}`
+    },
+    async constructFrontendUrlFromRequest({
+        domain,
+        path,
+    }: {
+        domain: string
+        path: string
+    }): Promise<string> {
+        const domainWithProtocol = await getFrontendDomainFromHostname(domain)
+        return `${domainWithProtocol}${path}`
+    },
+    async constructApiUrlFromRequest({
+        domain,
+        path,
+    }: {
+        domain: string
+        path: string
+    }): Promise<string> {
+        const domainWithProtocol = await getApiDomainFromHostname(domain)
+        return `${domainWithProtocol}${path}`
+    },
+}
+
+async function getFrontendDomainFromHostname(
+    hostname: string,
+): Promise<string> {
+    let domain = system.get(SystemProp.FRONTEND_URL)
+    return domain + (domain?.endsWith('/') ? '' : '/')
+}
+
+async function getApiDomainFromHostname(hostname: string): Promise<string> {
+    const frontendUrl = await getFrontendDomainFromHostname(hostname)
+    return frontendUrl + 'api/'
+}
+async function getFrontendDomain(
+    platformId: string | undefined | null,
+): Promise<string> {
+    let domain = system.getOrThrow(SystemProp.FRONTEND_URL)
+    return domain + (domain.endsWith('/') ? '' : '/')
+}
 
 const repo = databaseConnection.getRepository(UserInvitationEntity)
 const INVITATION_EXPIREY_DAYS = 1
@@ -58,11 +111,11 @@ export const userInvitationsService = {
                     assertNotNullOrUndefined(projectId, 'projectId')
                     assertNotNullOrUndefined(projectRole, 'projectRole')
                     assertEqual(platform.projectRolesEnabled, true, 'Project roles are not enabled', 'PROJECT_ROLES_NOT_ENABLED')
-                    await projectMemberService.upsert({
-                        projectId,
-                        userId: user.id,
-                        role: projectRole,
-                    })
+                    // await projectMemberService.upsert({
+                    //     projectId,
+                    //     userId: user.id,
+                    //     role: projectRole,
+                    // })
                     break
                 }
             }
@@ -104,17 +157,17 @@ export const userInvitationsService = {
             platformId,
         })
         const invitationLink = await generateInvitationLink(userInvitation)
-        await emailService.sendInvitation({
-            userInvitation,
-            invitationLink,
-        })
+        // await emailService.sendInvitation({
+        //     userInvitation,
+        //     invitationLink,
+        // })
         const platform = await platformService.getOneOrThrow(platformId)
-        if (!smtpEmailSender.isSmtpConfigured(platform)) {
-            return {
-                ...userInvitation,
-                link: invitationLink,
-            }
-        }
+        // if (!smtpEmailSender.isSmtpConfigured(platform)) {
+        //     return {
+        //         ...userInvitation,
+        //         link: invitationLink,
+        //     }
+        // }
         return userInvitation
     },
     async list(params: ListUserParams): Promise<SeekPage<UserInvitation>> {

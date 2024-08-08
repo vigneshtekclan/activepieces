@@ -4,15 +4,12 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import {
-  AuthenticationService,
-  DropdownSearchControlComponent, ProjectService, SelectAllDirective, UiCommonModule,
+  DropdownSearchControlComponent, SelectAllDirective, UiCommonModule,
 } from '@activepieces/ui/common';
 import { CommonModule } from '@angular/common';
 import { PieceMetadataService } from '../services/piece.service';
-import { PiecesFilterType } from '@activepieces/shared';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PieceMetadataModelSummary } from '@activepieces/pieces-framework';
 
 @Component({
@@ -39,9 +36,9 @@ export class ManagePiecesDialogComponent {
     public data: { pieces: string[] },
     private dialogRef: MatDialogRef<ManagePiecesDialogComponent>,
     private pieceMetadataService: PieceMetadataService,
-    private matSnackbar: MatSnackBar,
-    private projectService: ProjectService,
-    private authenticationService: AuthenticationService
+    // private matSnackbar: MatSnackBar,
+    // private projectService: ProjectService,
+    // private authenticationService: AuthenticationService
   ) {
     this.form = new FormGroup({
       pieces: new FormControl<string[]>(data.pieces, {
@@ -65,18 +62,18 @@ export class ManagePiecesDialogComponent {
       return;
     }
     this.loading$.next(true);
-    this.managePieces$ = this.projectService.update(this.authenticationService.getProjectId(), {
-      plan: {
-        pieces: this.form.value.pieces ?? [],
-        piecesFilterType: PiecesFilterType.ALLOWED
-      }
-    }).pipe(
-      tap(() => {
-        this.matSnackbar.open($localize`Pieces List Updated`);
-        this.loading$.next(false);
-        this.dialogRef.close(true);
-      }),
-      map(() => void 0));
+    // this.managePieces$ = this.projectService.update(this.authenticationService.getProjectId(), {
+    //   plan: {
+    //     pieces: this.form.value.pieces ?? [],
+    //     piecesFilterType: PiecesFilterType.ALLOWED
+    //   }
+    // }).pipe(
+    //   tap(() => {
+    //     this.matSnackbar.open($localize`Pieces List Updated`);
+    //     this.loading$.next(false);
+    //     this.dialogRef.close(true);
+    //   }),
+    //   map(() => void 0));
 
   }
 

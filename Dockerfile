@@ -48,6 +48,7 @@ COPY . .
 
 COPY .npmrc package.json package-lock.json ./
 RUN npm ci
+RUN npx nx reset
 
 RUN npx nx run-many --target=build --projects=server-api --configuration production
 RUN npx nx run-many --target=build --projects=ui-core --configuration production
@@ -82,7 +83,7 @@ COPY --from=build /usr/src/app/dist/packages/shared/ /usr/src/app/dist/packages/
 
 RUN cd /usr/src/app/dist/packages/server/api/ && npm install --production --force
 
-# 
+#
 # Copy Output files to appropriate directory from build stage
 COPY --from=build /usr/src/app/packages packages
 

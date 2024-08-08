@@ -3,8 +3,8 @@ import { FastifyInstance } from 'fastify'
 import { StatusCodes } from 'http-status-codes'
 import { setupApp } from '../../../../src/app/app'
 import { databaseConnection } from '../../../../src/app/database/database-connection'
-import { stripeHelper } from '../../../../src/app/ee/billing/project-billing/stripe-helper'
-import { emailService } from '../../../../src/app/ee/helper/email/email-service'
+// import { stripeHelper } from '../../../../src/app/ee/billing/project-billing/stripe-helper'
+// import { emailService } from '../../../../src/app/ee/helper/email/email-service'
 import {
     createMockCustomDomain,
     createMockPlatform,
@@ -19,13 +19,13 @@ beforeAll(async () => {
     app = await setupApp()
 })
 
-beforeEach(async () => {
-    emailService.sendOtp = jest.fn()
-    stripeHelper.getOrCreateCustomer = jest
-        .fn()
-        .mockResolvedValue(faker.string.alphanumeric())
-    await databaseConnection.getRepository('flag').delete({})
-})
+// beforeEach(async () => {
+//     emailService.sendOtp = jest.fn()
+//     stripeHelper.getOrCreateCustomer = jest
+//         .fn()
+//         .mockResolvedValue(faker.string.alphanumeric())
+//     await databaseConnection.getRepository('flag').delete({})
+// })
 
 afterAll(async () => {
     await databaseConnection.destroy()

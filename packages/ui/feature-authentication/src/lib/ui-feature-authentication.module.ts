@@ -20,7 +20,7 @@ import { ApEdition } from '@activepieces/shared';
 import { VerifyEmailPostSignUpComponent } from './pages/auth-actions/verify-email-post-sign-up/verify-email-post-sign-up.component';
 import { ResetPasswordComponent } from './pages/auth-actions/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { EeComponentsModule } from 'ee-components';
+// import { EeComponentsModule } from 'ee-components';
 import { RedirectToDashboardIfLoggedInGuard } from './guards/redirect-to-dashboard-if-logged-in.guard';
 import { AuthenticationMethodsSeparatorComponent } from './components/authentication-methods-separator/authentication-methods-separator.component';
 
@@ -34,7 +34,7 @@ import { AuthenticationMethodsSeparatorComponent } from './components/authentica
     MatMenuModule,
     MatCardModule,
     AngularSvgIconModule,
-    EeComponentsModule,
+    // EeComponentsModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', redirectTo: '/sign-in' },
       {

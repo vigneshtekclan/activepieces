@@ -7,7 +7,6 @@ import {
   ApFlagId,
   PieceScope,
   PieceType,
-  ProjectMemberRole,
   isNil,
 } from '@activepieces/shared';
 import { PieceMetadataService } from '../services/piece.service';
@@ -23,7 +22,7 @@ import {
   PieceMetadataSummary,
 } from '@activepieces/pieces-framework';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProjectMemberService } from 'ee-project-members';
+// import { ProjectMemberService } from 'ee-project-members';
 
 @Component({
   templateUrl: './project-pieces-table.component.html',
@@ -46,13 +45,13 @@ export class ProjectPiecesTableComponent {
     private pieceMetadataService: PieceMetadataService,
     private snackBar: MatSnackBar,
     private flagService: FlagService,
-    private projectMemberService: ProjectMemberService
+    // private projectMemberService: ProjectMemberService
   ) {
     this.dataSource = new ProjectPiecesDataSource(
       this.pieceMetadataService,
       this.refreshTable$.asObservable().pipe(startWith(true))
     );
-    this.isAdmin$ = this.projectMemberService.isRole(ProjectMemberRole.ADMIN);
+    this.isAdmin$ = new Observable();
     this.installPieceEnabled$ = this.flagService.isFlagEnabled(
       ApFlagId.INSTALL_PROJECT_PIECES_ENABLED
     );

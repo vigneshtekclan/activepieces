@@ -3,7 +3,7 @@ import { ActivepiecesError, ApEnvironment, EngineHttpResponse, ErrorCode, Execut
 import { FastifyPluginAsyncTypebox, Type } from '@fastify/type-provider-typebox'
 import { StatusCodes } from 'http-status-codes'
 import { entitiesMustBeOwnedByCurrentProject } from '../authentication/authorization'
-import { tasksLimit } from '../ee/project-plan/tasks-limit'
+// import { tasksLimit } from '../ee/project-plan/tasks-limit'
 import { fileService } from '../file/file.service'
 import { flowService } from '../flows/flow/flow.service'
 import { flowRunService } from '../flows/flow-run/flow-run-service'
@@ -95,20 +95,20 @@ export const flowEngineWorker: FastifyPluginAsyncTypebox = async (app) => {
         return {}
     })
 
-    app.get('/check-task-limit', CheckTaskLimitParams, async (request) => {
-        const exceededLimit = await tasksLimit.exceededLimit({
-            projectId: request.principal.projectId,
-        })
-        if (exceededLimit) {
-            throw new ActivepiecesError({
-                code: ErrorCode.QUOTA_EXCEEDED,
-                params: {
-                    metric: 'tasks',
-                },
-            })
-        }
-        return {}
-    })
+    // app.get('/check-task-limit', CheckTaskLimitParams, async (request) => {
+    //     const exceededLimit = await tasksLimit.exceededLimit({
+    //         projectId: request.principal.projectId,
+    //     })
+    //     if (exceededLimit) {
+    //         throw new ActivepiecesError({
+    //             code: ErrorCode.QUOTA_EXCEEDED,
+    //             params: {
+    //                 metric: 'tasks',
+    //             },
+    //         })
+    //     }
+    //     return {}
+    // })
 
     app.get('/flows', GetLockedVersionRequest, async (request) => {
         const populatedFlow = await getFlow(request.principal.projectId, request.query)

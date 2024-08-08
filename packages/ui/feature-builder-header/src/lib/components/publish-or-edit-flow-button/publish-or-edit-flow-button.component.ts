@@ -11,8 +11,8 @@ import {
   NO_PROPS,
 } from '@activepieces/ui/feature-builder-store';
 import { Router } from '@angular/router';
-import { Permission, PopulatedFlow } from '@activepieces/shared';
-import { doesUserHavePermission } from '@activepieces/ui/common';
+import { PopulatedFlow } from '@activepieces/shared';
+// import { doesUserHavePermission } from '@activepieces/ui/common';
 
 @Component({
   selector: 'app-publish-or-edit-flow-button',
@@ -21,9 +21,10 @@ import { doesUserHavePermission } from '@activepieces/ui/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublishButtonComponent implements OnInit {
-  readonly userHasPermissionToPublish = doesUserHavePermission(
-    Permission.UPDATE_FLOW_STATUS
-  );
+  // readonly userHasPermissionToPublish = doesUserHavePermission(
+  //   Permission.UPDATE_FLOW_STATUS
+  // );
+  readonly userHasPermissionToPublish = true;
   flowState$: Observable<{
     isSaving: boolean;
     isPublishing: boolean;

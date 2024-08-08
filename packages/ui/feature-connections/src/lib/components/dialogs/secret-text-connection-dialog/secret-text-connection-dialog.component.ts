@@ -23,6 +23,7 @@ import {
 } from '@activepieces/ui/common';
 import { createConnectionNameControl } from '../utils';
 
+export const USE_CLOUD_CREDENTIALS = 'USE_CLOUD_CREDENTIALS';
 interface SecretTextForm {
   secretText: FormControl<string>;
   name: FormControl<string>;

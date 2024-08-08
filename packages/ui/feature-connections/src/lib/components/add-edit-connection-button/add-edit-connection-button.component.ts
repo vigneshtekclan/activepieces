@@ -23,7 +23,6 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, of, shareReplay, switchMap, take, tap } from 'rxjs';
 import { AppConnectionsService, FlagService } from '@activepieces/ui/common';
-import { CloudAuthConfigsService } from '../../services/cloud-auth-configs.service';
 import {
   CustomAuthConnectionDialogComponent,
   CustomAuthDialogData,
@@ -37,6 +36,12 @@ import {
   SecretTextConnectionDialogData,
 } from '../dialogs/secret-text-connection-dialog/secret-text-connection-dialog.component';
 import {
+  checkIfTriggerIsAppWebhook,
+  getConnectionNameFromInterpolatedString,
+  PieceOAuth2DetailsValue,
+} from './utils';
+import { OAuth2Property } from '@activepieces/pieces-framework';
+import {
   OAuth2ConnectionDialogComponent,
   OAuth2ConnectionDialogData,
   USE_CLOUD_CREDENTIALS,
@@ -46,13 +51,8 @@ import {
   ManagedOAuth2ConnectionDialogData,
   USE_MY_OWN_CREDENTIALS,
 } from '../dialogs/managed-oauth2-connection-dialog/managed-oauth2-connection-dialog.component';
-import {
-  PieceOAuth2DetailsValue,
-  checkIfTriggerIsAppWebhook,
-  getConnectionNameFromInterpolatedString,
-} from './utils';
+import { CloudAuthConfigsService } from '../../services/cloud-auth-configs.service';
 import { PieceMetadataService } from '@activepieces/ui/feature-pieces';
-import { OAuth2Property } from '@activepieces/pieces-framework';
 
 @Component({
   selector: 'app-add-edit-connection-button',
@@ -247,6 +247,7 @@ export class AddEditConnectionButtonComponent {
       map(() => void 0)
     );
   }
+
   private openNewOAuth2ConnectionDialog(): Observable<void> {
     return this.flagService.getFrontendUrl().pipe(
       switchMap((frontEndUrl) => {
@@ -349,6 +350,7 @@ export class AddEditConnectionButtonComponent {
     switch (this.authProperty.type) {
       case PropertyType.OAUTH2: {
         this.editOAuth2Property(currentConnection$);
+        // this.editSecretKeyConnection(currentConnection$);
         break;
       }
       case PropertyType.SECRET_TEXT: {

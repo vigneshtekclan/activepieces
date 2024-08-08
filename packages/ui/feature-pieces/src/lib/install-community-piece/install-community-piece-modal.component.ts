@@ -95,6 +95,10 @@ export class InstallCommunityPieceModalComponent {
               name: 'NPM Registry',
               value: PackageType.REGISTRY,
             },
+            {
+              name: 'Packed Archive (.tgz)',
+              value: PackageType.ARCHIVE,
+            },
           ];
         })
       );

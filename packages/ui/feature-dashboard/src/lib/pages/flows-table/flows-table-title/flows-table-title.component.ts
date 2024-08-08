@@ -11,7 +11,6 @@ import {
   FlowOperationType,
   TelemetryEventName,
   ProjectWithLimits,
-  Permission,
 } from '@activepieces/shared';
 import { FoldersSelectors } from '@activepieces/ui/feature-folders-store';
 import { Store } from '@ngrx/store';
@@ -25,7 +24,6 @@ import {
   TelemetryService,
   EmbeddingService,
   ProjectService,
-  doesUserHavePermission,
   unpermittedTooltip,
 } from '@activepieces/ui/common';
 import { Router } from '@angular/router';
@@ -53,7 +51,8 @@ export class FlowsTableTitleComponent {
   openTemplatesDialog$?: Observable<void>;
   readonly flowActionsUiInfo = flowActionsUiInfo;
   hideFoldersList$ = this.embeddingService.getHideFolders$();
-  readonly isReadOnly = !doesUserHavePermission(Permission.WRITE_FLOW);
+  // readonly isReadOnly = !doesUserHavePermission(Permission.WRITE_FLOW);
+  readonly isReadOnly = false;
   readonly unpermittedTooltip = unpermittedTooltip;
   constructor(
     private store: Store,

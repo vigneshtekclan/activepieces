@@ -5,6 +5,7 @@ import {
     ListFlowTemplatesRequest,
 } from '@activepieces/shared'
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
+import mydata from '../../../templates.json'
 import { paginationHelper } from '../helper/pagination/pagination-utils'
 
 export const communityFlowTemplateModule: FastifyPluginAsyncTypebox = async (
@@ -29,15 +30,8 @@ const flowTemplateController: FastifyPluginAsyncTypebox = async (fastify) => {
             if (isNil(templateSource)) {
                 return paginationHelper.createPage([], null)
             }
-            const queryString = convertToQueryString(request.query)
-            const url = `${templateSource}?${queryString}`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            const templates = await response.json()
+            convertToQueryString(request.query)
+            const templates = mydata
             return templates
         },
     )

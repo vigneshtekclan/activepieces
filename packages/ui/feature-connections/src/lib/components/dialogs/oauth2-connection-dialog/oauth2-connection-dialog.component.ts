@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import {
   AppConnectionType,
   AppConnectionWithoutSensitiveData,
@@ -31,7 +31,7 @@ import {
   OAuth2PopupParams,
   OAuth2PopupResponse,
 } from '../../../models/oauth2-popup-params.interface';
-import { CloudAuthConfigsService } from '../../../services/cloud-auth-configs.service';
+// import { CloudAuthConfigsService } from '../../../services/cloud-auth-configs.service';
 import { AppConnectionsService } from '@activepieces/ui/common';
 import { createConnectionNameControl } from '../utils';
 
@@ -77,7 +77,7 @@ export class OAuth2ConnectionDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<OAuth2ConnectionDialogComponent>,
-    private cloudAuthConfigsService: CloudAuthConfigsService,
+    // private cloudAuthConfigsService: CloudAuthConfigsService,
     private appConnectionsService: AppConnectionsService,
     private authenticatiionService: AuthenticationService,
     private snackbar: MatSnackBar,
@@ -86,13 +86,13 @@ export class OAuth2ConnectionDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.hasCloudAuthCred$ = this.cloudAuthConfigsService
-      .getAppsAndTheirClientIds()
-      .pipe(
-        map((res) => {
-          return !!res[this.dialogData.pieceName];
-        })
-      );
+    // this.hasCloudAuthCred$ = this.cloudAuthConfigsService
+    //   .getAppsAndTheirClientIds()
+    //   .pipe(
+    //     map((res) => {
+    //       return !!res[this.dialogData.pieceName];
+    //     })
+    //   );
     const propsControls = this.createPropsFormGroup();
     this.settingsForm = this.fb.group({
       redirect_url: new FormControl(this.dialogData.redirectUrl, {

@@ -36,7 +36,7 @@
               <th mat-header-cell *matHeaderCellDef i18n>Status</th>
               <td mat-cell *matCellDef="let flow">
                 <div class="ap-px-1 ap-flex ap-items-center ap-gap-1" >
-                    
+
                   @if(isStatusReadOnly) {
                     @if(flow.instanceToggleControl.disabled)
                     {
@@ -57,7 +57,7 @@
                     (click)="$event.stopImmediatePropagation(); toggleFlowStatus(flow,flow.instanceToggleControl)"
                     [formControl]="flow.instanceToggleControl"
                     [matTooltip]="flow.instanceToggleControl.value | flowStatus: flow.instanceToggleControl.disabled"></mat-slide-toggle>
-             
+
                   }
                   <div class="ap-min-h-[30px]  ap-flex ap-items-center ap-justify-center">
                     <svg-icon [src]="flow | triggerIcon"
@@ -68,7 +68,7 @@
                     <div *ngIf="flowsUpdateStatusRequest$[flow.id]" class="spinner-border dark-spinner" role="status">
                     </div>
                   </div>
-             
+
                 </div>
               </td>
             </ng-container>
@@ -86,10 +86,10 @@
                   <mat-icon>more_vert</mat-icon>
                 </button>
                   <ap-flow-actions-list #actionsList
-                   [flow]="flow" 
-                  [inBuilder]="true" 
+                   [flow]="flow"
+                  [inBuilder]="true"
                   (renameFlow)="renameFlow(flow)"
-                   (flowDuplicated)="refreshTable()" 
+                   (flowDuplicated)="refreshTable()"
                    (flowDeleted)="refreshTable()"
                   (flowMoved)="refreshTable()" ></ap-flow-actions-list>
             </ng-container>
@@ -123,7 +123,7 @@
       </div>
     </div>
   </div>
-  <ng-container *ngTemplateOutlet="rewards"></ng-container>
+  <!-- <ng-container *ngTemplateOutlet="rewards"></ng-container> -->
 </div>
 
 <ng-container *ngIf="(areThereFlows$|async)===false">
@@ -153,5 +153,3 @@
   </div>
   }
 </ng-template>
-
-@if(renameFlow$ | async) {}

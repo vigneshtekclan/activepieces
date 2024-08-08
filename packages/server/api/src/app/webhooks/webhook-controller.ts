@@ -15,7 +15,7 @@ import {
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
 import { FastifyRequest } from 'fastify'
 import { StatusCodes } from 'http-status-codes'
-import { tasksLimit } from '../ee/project-plan/tasks-limit'
+// import { tasksLimit } from '../ee/project-plan/tasks-limit'
 import { webhookResponseWatcher } from '../flow-worker/helper/webhook-response-watcher'
 import { flowQueue } from '../flow-worker/queue'
 import { flowRepo } from '../flows/flow/flow.repo'
@@ -159,21 +159,21 @@ const getFlowOrThrow = async (flowId: FlowId): Promise<Flow> => {
         })
     }
 
-    const exceededLimit = await tasksLimit.exceededLimit({
-        projectId: flow.projectId,
-    })
-    if (exceededLimit) {
-        logger.info({
-            message: 'disable webhook out of flow quota',
-            projectId: flow.projectId,
-            flowId: flow.id,
-        })
-        await flowService.updateStatus({
-            id: flow.id,
-            projectId: flow.projectId,
-            newStatus: FlowStatus.DISABLED,
-        })
-    }
+    // const exceededLimit = await tasksLimit.exceededLimit({
+    //     projectId: flow.projectId,
+    // })
+    // if (exceededLimit) {
+    //     logger.info({
+    //         message: 'disable webhook out of flow quota',
+    //         projectId: flow.projectId,
+    //         flowId: flow.id,
+    //     })
+    //     await flowService.updateStatus({
+    //         id: flow.id,
+    //         projectId: flow.projectId,
+    //         newStatus: FlowStatus.DISABLED,
+    //     })
+    // }
 
     return flow
 }

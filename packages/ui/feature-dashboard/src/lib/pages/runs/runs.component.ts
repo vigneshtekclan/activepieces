@@ -12,14 +12,13 @@ import {
   executionsPageFragments,
 } from '@activepieces/ui/common';
 import { RunsTableComponent } from '../../components/runs-table/runs-table.component';
-import { IssuesTableComponent } from '../../components/issues-table/issues-table.component';
+// import { IssuesTableComponent } from '../../components/issues-table/issues-table.component';
 import { TabsPageCoreComponent } from '../../components/tabs-page-core/tabs-page-core.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
-import { PopulatedIssue } from '@activepieces/ee-shared';
+// import { PopulatedIssue } from '@activepieces/ee-shared';
 import { IssuesService } from '../../services/issues.service';
 import { Observable, take } from 'rxjs';
-import { FlowRunStatus } from '@activepieces/shared';
 
 @Component({
   selector: 'app-executions',
@@ -28,24 +27,11 @@ import { FlowRunStatus } from '@activepieces/shared';
     CommonModule,
     UiCommonModule,
     RunsTableComponent,
-    IssuesTableComponent,
+    // IssuesTableComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class=" ap-px-[30px] ap-pt-[50px]">
-      <ap-page-title title="Runs" i18n-title>
-        @if((isInEmbedding$ | async) === false) {
-        <ap-button
-          actionButton
-          i18n-tooltipText
-          (buttonClicked)="goToAlerts()"
-          btnSize="medium"
-          btnColor="primary"
-          i18n
-          >Set Alerts</ap-button
-        >
-        }
-      </ap-page-title>
       @if(isInEmbedding$ | async) {
       <app-runs-table #runsTable></app-runs-table>
       } @else() {
@@ -64,32 +50,6 @@ import { FlowRunStatus } from '@activepieces/shared';
             <app-runs-table #runsTable></app-runs-table>
           </div>
         </mat-tab>
-
-        <mat-tab i18n-label label="Issues">
-          <ng-template matTabLabel class="ap-flex ap-items-center">
-            <div class="ap-flex ap-gap-1 ap-items-center">
-              <div class="category-label" i18n>Issues</div>
-              @if((isIssuesDisabled$ | async) ===false) { @if(isThereAnIssue$ |
-              async){
-              <svg-icon
-                [applyClass]="true"
-                class="ap-fill-danger ap-top-[6px] ap-right-[-6px] ap-absolute"
-                [svgStyle]="{ width: '8px', height: '8px' }"
-                src="assets/img/custom/notification_important.svg"
-              >
-              </svg-icon>
-              } }
-            </div>
-          </ng-template>
-
-          <div class="ap-mt-1">
-            <app-issues-table
-              (issueClicked)="issueClicked($event.issue)"
-              [isFeatureDisabled]="isIssuesDisabled$ | async | defaultFalse"
-              #IssuesTable
-            ></app-issues-table>
-          </div>
-        </mat-tab>
       </mat-tab-group>
       }
     </div>
@@ -102,7 +62,7 @@ export class RunsComponent
 {
   @ViewChild('tabs') tabGroupView?: MatTabGroup;
   @ViewChild('runsTable') runsTable?: RunsTableComponent;
-  @ViewChild('IssuesTable') IssuesTable?: IssuesTableComponent;
+  // @ViewChild('IssuesTable') IssuesTable?: IssuesTableComponent;
   isThereAnIssue$: Observable<boolean>;
   isIssuesDisabled$: Observable<boolean>;
   isInEmbedding$: Observable<boolean>;
@@ -148,35 +108,35 @@ export class RunsComponent
       this.route.snapshot.fragment !==
       this.tabIndexFragmentMap[event.index].fragmentName
     ) {
-      const queryParams =
-        event.index === 0
-          ? this.runsTable?.getCurrentQueryParams()
-          : this.IssuesTable?.getCurrentQueryParams();
-      this.updateFragment(
-        this.tabIndexFragmentMap[event.index].fragmentName,
-        queryParams ?? {}
-      );
+      // const queryParams =
+      //   event.index === 0
+      //     ? this.runsTable?.getCurrentQueryParams()
+      //     : this.runsTable?.getCurrentQueryParams();
+      // this.updateFragment(
+      //   this.tabIndexFragmentMap[event.index].fragmentName,
+      //   queryParams ?? {}
+      // );
     }
   }
 
-  issueClicked(issue: PopulatedIssue) {
-    const runsTabIndex = this.tabIndexFragmentMap.findIndex(
-      (i) => i.fragmentName === executionsPageFragments.Runs
-    );
-    if (this.tabGroup) {
-      this.tabGroup.selectedIndex = runsTabIndex;
-    }
-    this.runsTable?.setParams(
-      [
-        FlowRunStatus.FAILED,
-        FlowRunStatus.TIMEOUT,
-        FlowRunStatus.INTERNAL_ERROR,
-        FlowRunStatus.QUOTA_EXCEEDED,
-      ],
-      issue.flowId,
-      issue.created
-    );
-  }
+  // issueClicked(issue: PopulatedIssue) {
+  //   const runsTabIndex = this.tabIndexFragmentMap.findIndex(
+  //     (i) => i.fragmentName === executionsPageFragments.Runs
+  //   );
+  //   if (this.tabGroup) {
+  //     this.tabGroup.selectedIndex = runsTabIndex;
+  //   }
+  //   this.runsTable?.setParams(
+  //     [
+  //       FlowRunStatus.FAILED,
+  //       FlowRunStatus.TIMEOUT,
+  //       FlowRunStatus.INTERNAL_ERROR,
+  //       FlowRunStatus.QUOTA_EXCEEDED,
+  //     ],
+  //     issue.flowId,
+  //     issue.created
+  //   );
+  // }
 
   goToAlerts() {
     this.router.navigate(['/settings'], { fragment: 'Alerts' });

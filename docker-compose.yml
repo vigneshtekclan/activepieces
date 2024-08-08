@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   activepieces:
-    image: ghcr.io/activepieces/activepieces:0.28.0
+    image: active-pieces-custom-new
     container_name: activepieces
     restart: unless-stopped
     ## Enable the following line if you already use AP_EXECUTION_MODE with SANDBOXED or old activepieces, checking the breaking change documentation for more info.
@@ -23,7 +23,7 @@ services:
       - 'POSTGRES_PASSWORD=${AP_POSTGRES_PASSWORD}'
       - 'POSTGRES_USER=${AP_POSTGRES_USERNAME}'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ~/docker_data/v1/postgres_data:/var/lib/postgresql/data
     networks:
       - activepieces
   redis:
@@ -31,7 +31,7 @@ services:
     container_name: redis
     restart: unless-stopped
     volumes:
-      - 'redis_data:/data'
+      - '~/docker_data/v1/redis_data:/data'
     networks:
       - activepieces
 volumes:

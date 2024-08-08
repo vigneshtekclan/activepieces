@@ -6,6 +6,7 @@ import { FlagEntity } from '../../flags/flag.entity'
 import { databaseConnection } from '../database-connection'
 
 const DEV_DATA_SEEDED_FLAG = 'DEV_DATA_SEEDED'
+const PROD_DATA_SEEDED_FLAG = 'PROD_DATA_SEEDED'
 
 const currentEnvIsNotDev = (): boolean => {
     const env = system.get(SystemProp.ENVIRONMENT)
@@ -47,9 +48,50 @@ const seedDevUser = async (): Promise<void> => {
     logger.info({ name: 'seedDevUser' }, `email=${DEV_EMAIL} pass=${DEV_PASSWORD}`)
 }
 
+const getProdAlreadySeeded = async (): Promise<boolean> => {
+    const flagRepo = databaseConnection.getRepository(FlagEntity)
+    const devSeedsFlag = await flagRepo.findOneBy({ id: PROD_DATA_SEEDED_FLAG })
+    logger.info({ name: 'prod seed data' }, 'not seeded')
+    return devSeedsFlag?.value === true
+}
+
+const setProdDataSeededFlag = async (): Promise<void> => {
+    const flagRepo = databaseConnection.getRepository(FlagEntity)
+
+    await flagRepo.save({
+        id: PROD_DATA_SEEDED_FLAG,
+        value: true,
+    })
+    logger.info({ name: 'prod seed data' }, 'seeded successfully')
+}
+
+const seedProdUser = async (): Promise<void> => {
+    const DEV_EMAIL = 'developer@yuniq.com'
+    const DEV_PASSWORD = '12345678'
+
+
+    await authenticationService.signUp({
+        email: DEV_EMAIL,
+        password: DEV_PASSWORD,
+        firstName: 'developer',
+        lastName: 'yuniq',
+        trackEvents: false,
+        newsLetter: false,
+        verified: true,
+        platformId: null,
+        provider: Provider.EMAIL,
+    })
+
+    logger.info({ name: 'seedProdUser' }, `email=${DEV_EMAIL} pass=${DEV_PASSWORD}`)
+}
+
 export const seedDevData = async (): Promise<void> => {
     if (currentEnvIsNotDev()) {
-        logger.info({ name: 'seedDevData' }, 'skip: not in development environment')
+        logger.info({ name: 'seedDevData' }, 'skip: not in development environment!')
+        if (!await getProdAlreadySeeded()) {
+            await seedProdUser()
+            await setProdDataSeededFlag()
+        }
         return
     }
 

@@ -12,7 +12,7 @@ import {
     RunEnvironment,
 } from '@activepieces/shared'
 import dayjs from 'dayjs'
-import { issuesService } from '../../ee/issues/issues-service'
+// import { issuesService } from '../../ee/issues/issues-service'
 import { flowQueue } from '../../flow-worker/queue'
 import { flowRunHooks } from './flow-run-hooks'
 
@@ -51,11 +51,12 @@ export const flowRunSideEffects = {
             .onFinish({ projectId: flowRun.projectId, tasks: flowRun.tasks! })
         if (flowRun.environment === RunEnvironment.PRODUCTION) {
             if (isFailedState(flowRun.status)) {
-                await issuesService.add({
-                    flowId: flowRun.flowId,
-                    projectId: flowRun.projectId,
-                    flowRunCreatedAt: flowRun.created,
-                })
+                // await issuesService.add({
+                //     flowId: flowRun.flowId,
+                //     projectId: flowRun.projectId,
+                //     flowRunCreatedAt: flowRun.created,
+                // })
+                // TODO: need to be implemented
             }
         }
     },

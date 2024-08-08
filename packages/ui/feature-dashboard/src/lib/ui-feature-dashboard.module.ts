@@ -17,14 +17,14 @@ import { FlowsTableTitleComponent } from './pages/flows-table/flows-table-title/
 import { FoldersListComponent } from './pages/flows-table/folders-list/folders-list.component';
 import { NewFolderDialogComponent } from './components/dialogs/new-folder-dialog/new-folder-dialog.component';
 import { RenameFolderDialogComponent } from './components/dialogs/rename-folder-dialog/rename-folder-dialog.component';
-import { EeBillingUiModule } from 'ee-billing-ui';
+// import { EeBillingUiModule } from 'ee-billing-ui';
 import { UiFeatureTemplatesModule } from '@activepieces/ui/feature-templates';
 import { UiFeaturePiecesModule } from '@activepieces/ui/feature-pieces';
 import { ProjectSwitcherComponent } from './components/project-switcher/project-switcher.component';
 import { TriggerTooltipPipe } from './pipes/trigger-tooltip.pipe';
 import { TriggerIconPipe } from './pipes/trigger-icon.pipe';
 import { FlowStatusPipe } from './pipes/flow-status-tooltip.pipe';
-import { EeComponentsModule } from 'ee-components';
+// import { EeComponentsModule } from 'ee-components';
 import { RenameFlowDialogComponent } from './components/dialogs/rename-flow-dialog/rename-flow-dialog.component';
 import { UiFeatureFoldersStoreModule } from '@activepieces/ui/feature-folders-store';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -32,22 +32,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NewConnectionDialogComponent } from './components/dialogs/new-connection-dialog/new-connection-dialog.component';
 import { UiFeatureConnectionsModule } from '@activepieces/ui/feature-connections';
 import { FormsModule } from '@angular/forms';
-import {
-  PushFlowToGitButtonComponent,
-  SyncProjectComponent,
-} from '@activepieces/ui-feature-git-sync';
+// import {
+//   PushFlowToGitButtonComponent,
+//   SyncProjectComponent,
+// } from '@activepieces/ui-feature-git-sync';
 import { RewardsDialogComponent } from './components/dialogs/rewards-dialog/rewards-dialog.component';
-import { NewAlertDialogComponent } from './components/dialogs/new-alert-dialog/new-alert-dialog.component';
+// import { NewAlertDialogComponent } from './components/dialogs/new-alert-dialog/new-alert-dialog.component';
 import { RequestTrialButtonComponent } from './components/request-trial-button/request-trial-button.component';
 import { AdminConsoleButtonComponent } from './components/admin-console-button/admin-console-button.component';
-import { InviteUserButtonComponent } from './components/invite-user-button/invite-user-button.component';
+// import { InviteUserButtonComponent } from './components/invite-user-button/invite-user-button.component';
 import { FlowActionsListComponent } from '@activepieces/ui-feature-flow-actions-list';
 @NgModule({
   imports: [
     CommonModule,
     UiCommonModule,
     SidenavRoutesListComponent,
-    EeBillingUiModule,
+    // EeBillingUiModule,
     RouterModule.forChild(DashboardLayoutRouting),
     UiFeatureFoldersStoreModule,
     UiFeatureTemplatesModule,
@@ -55,20 +55,20 @@ import { FlowActionsListComponent } from '@activepieces/ui-feature-flow-actions-
     TriggerTooltipPipe,
     TriggerIconPipe,
     FlowStatusPipe,
-    EeComponentsModule,
-    PushFlowToGitButtonComponent,
+    // EeComponentsModule,
+    // PushFlowToGitButtonComponent,
     MatDatepickerModule,
     MatNativeDateModule,
     UiFeatureConnectionsModule,
     FormsModule,
-    SyncProjectComponent,
+    // SyncProjectComponent,
     RewardsDialogComponent,
     DropdownSearchControlComponent,
     SelectAllDirective,
     ApDatePipe,
     RequestTrialButtonComponent,
     AdminConsoleButtonComponent,
-    InviteUserButtonComponent,
+    // InviteUserButtonComponent,
     FlowActionsListComponent,
   ],
   declarations: [
@@ -83,7 +83,7 @@ import { FlowActionsListComponent } from '@activepieces/ui-feature-flow-actions-
     ProjectSwitcherComponent,
     RenameFlowDialogComponent,
     NewConnectionDialogComponent,
-    NewAlertDialogComponent,
+    // NewAlertDialogComponent,
   ],
   providers: [DatePipe],
 })

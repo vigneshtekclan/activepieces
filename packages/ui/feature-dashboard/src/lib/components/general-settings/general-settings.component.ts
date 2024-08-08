@@ -17,14 +17,10 @@ import {
   take,
   tap,
 } from 'rxjs';
-import {
-  ApFlagId,
-  ProjectMemberRole,
-  ProjectWithLimits,
-} from '@activepieces/shared';
+import { ApFlagId, ProjectWithLimits } from '@activepieces/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectMemberService } from 'ee-project-members';
+// import { ProjectMemberService } from 'ee-project-members';
 
 interface UpdateProjectForm {
   displayName: FormControl<string>;
@@ -53,13 +49,12 @@ export class GeneralSettingsComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    private matSnackbar: MatSnackBar,
-    private projectMemberService: ProjectMemberService
+    private matSnackbar: MatSnackBar // private projectMemberService: ProjectMemberService
   ) {
     this.projectLimitsEnabled =
       this.route.snapshot.data['flags'][ApFlagId.PROJECT_LIMITS_ENABLED];
 
-    this.canSave$ = this.projectMemberService.isRole(ProjectMemberRole.ADMIN);
+    // this.canSave$ = this.projectMemberService.isRole(ProjectMemberRole.ADMIN);
     const projectLimitsForm = {
       tasks: this.fb.control(
         {

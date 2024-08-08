@@ -26,7 +26,7 @@ import {
   NgxMonacoEditorConfig,
 } from 'ngx-monaco-editor-v2';
 import { apMonacoTheme } from './monaco-themes/ap-monaco-theme';
-import { EeComponentsModule } from 'ee-components';
+// import { EeComponentsModule } from 'ee-components';
 import { UiFeatureAuthenticationModule } from '@activepieces/ui/feature-authentication';
 import { FormsComponent } from './modules/forms/forms.component';
 import { UiFeaturePiecesModule } from '@activepieces/ui/feature-pieces';
@@ -106,7 +106,7 @@ export function playerFactory() {
     AngularSvgIconModule.forRoot(),
     UiCommonModule,
     LottieComponent,
-    EeComponentsModule,
+    // EeComponentsModule,
     MonacoEditorModule.forRoot(monacoConfig),
   ],
 })

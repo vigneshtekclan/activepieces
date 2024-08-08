@@ -1,4 +1,4 @@
-import { ApplicationEventName } from '@activepieces/ee-shared'
+// import { ApplicationEventName } from '@activepieces/ee-shared'
 import {
     ApId,
     AppConnection,
@@ -19,6 +19,7 @@ import {
 import { StatusCodes } from 'http-status-codes'
 import { eventsHooks } from '../helper/application-events'
 import { appConnectionService } from './app-connection-service/app-connection-service'
+import { ApplicationEventName } from '../authentication/authentication.controller'
 
 export const appConnectionController: FastifyPluginCallbackTypebox = (
     app,

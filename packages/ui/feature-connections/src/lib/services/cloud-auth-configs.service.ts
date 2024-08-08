@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { FlagService, OAuth2AppsService } from '@activepieces/ui/common';
+import { FlagService } from '@activepieces/ui/common';
 import { ApEdition, ApFlagId, AppConnectionType } from '@activepieces/shared';
 import {
   PieceOAuth2DetailsMap,
@@ -12,33 +12,32 @@ import {
   providedIn: 'root',
 })
 export class CloudAuthConfigsService {
+  [x: string]: any;
   constructor(
     private http: HttpClient,
-    private flagsService: FlagService,
-    private oAuth2AppsService: OAuth2AppsService
+    private flagsService: FlagService // private oAuth2AppsService: OAuth2AppsService
   ) {}
-
   private getPlatformAuth(
     edition: ApEdition
   ): Observable<PieceOAuth2DetailsMap> {
     if (edition === ApEdition.COMMUNITY) {
       return of({});
     }
-    return this.oAuth2AppsService.listOAuth2AppsCredentials().pipe(
-      map((res) => {
-        const platformAppsClientIdMap: PieceOAuth2DetailsMap = {};
-        res.data.forEach((app) => {
-          platformAppsClientIdMap[app.pieceName] = {
-            clientId: app.clientId,
-            connectionType: AppConnectionType.PLATFORM_OAUTH2,
-          };
-        });
-        return platformAppsClientIdMap;
-      }),
-      handleErrorForGettingPiecesOAuth2Details
-    );
+    // return this.oAuth2AppsService.listOAuth2AppsCredentials().pipe(
+    //   map((res) => {
+    //     const platformAppsClientIdMap: PieceOAuth2DetailsMap = {};
+    //     res.data.forEach((app) => {
+    //       platformAppsClientIdMap[app.pieceName] = {
+    //         clientId: app.clientId,
+    //         connectionType: AppConnectionType.PLATFORM_OAUTH2,
+    //       };
+    //     });
+    //     return platformAppsClientIdMap;
+    //   }),
+    //   handleErrorForGettingPiecesOAuth2Details
+    // );
+    return of({});
   }
-
   private getCloudAuth(
     cloudAuthEnabled: boolean,
     edition: ApEdition
@@ -64,7 +63,6 @@ export class CloudAuthConfigsService {
         handleErrorForGettingPiecesOAuth2Details
       );
   }
-
   getAppsAndTheirClientIds(): Observable<PieceOAuth2DetailsMap> {
     return forkJoin({
       edition: this.flagsService.getEdition(),

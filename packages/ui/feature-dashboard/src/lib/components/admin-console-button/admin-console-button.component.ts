@@ -39,19 +39,6 @@ import { Observable, tap } from 'rxjs';
           [svgStyle]="{ width: '18px', height: '18px' }"
           src="assets/img/custom/dashboard/admin-console.svg"
         ></svg-icon>
-        <b class="ap-hidden sm:ap-inline-block">Platform Admin</b>
-      </div>
-    </ap-button>
-    } @if(isInPlatformRoute) {
-    <ap-button
-      btnColor="white"
-      btnStyle="stroked"
-      btnSize="medium"
-      (buttonClicked)="navigateToProjectDashboard()"
-      i18n
-    >
-      <div class="ap-flex ap-gap-2 ap-items-center">
-        <b>Exit Platform Admin</b>
       </div>
     </ap-button>
     } @if(navigateToAdminConsole$ |async) {}

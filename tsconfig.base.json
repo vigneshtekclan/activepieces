@@ -17,9 +17,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@activepieces/ee-auth": ["packages/ee/auth/src/index.ts"],
-      "@activepieces/ee-shared": ["packages/ee/shared/src/index.ts"],
-      "@activepieces/ee/billing/ui": ["packages/ee/billing/ui/src/index.ts"],
+      // "@activepieces/ee-auth": ["packages/ee/auth/src/index.ts"],
+      // "@activepieces/ee-shared": ["packages/ee/shared/src/index.ts"],
+      // "@activepieces/ee/billing/ui": ["packages/ee/billing/ui/src/index.ts"],
       "@activepieces/engine": ["packages/engine/src/main.ts"],
       "@activepieces/piece-activecampaign": [
         "packages/pieces/community/activecampaign/src/index.ts"
@@ -344,21 +344,21 @@
       "@activepieces/piece-messagebird": [
         "packages/pieces/community/messagebird/src/index.ts"
       ],
-      "@activepieces/piece-microsoft-dynamics-365-business-central": [
-        "packages/ee/pieces/microsoft-dynamics-365-business-central/src/index.ts"
-      ],
-      "@activepieces/piece-microsoft-dynamics-crm": [
-        "packages/ee/pieces/microsoft-dynamics-crm/src/index.ts"
-      ],
+      // "@activepieces/piece-microsoft-dynamics-365-business-central": [
+      //   "packages/ee/pieces/microsoft-dynamics-365-business-central/src/index.ts"
+      // ],
+      // "@activepieces/piece-microsoft-dynamics-crm": [
+      //   "packages/ee/pieces/microsoft-dynamics-crm/src/index.ts"
+      // ],
       "@activepieces/piece-microsoft-excel-365": [
         "packages/pieces/community/microsoft-excel-365/src/index.ts"
       ],
       "@activepieces/piece-microsoft-onedrive": [
         "packages/pieces/community/microsoft-onedrive/src/index.ts"
       ],
-      "@activepieces/piece-microsoft-sharepoint": [
-        "packages/ee/pieces/sharepoint/src/index.ts"
-      ],
+      // "@activepieces/piece-microsoft-sharepoint": [
+      //   "packages/ee/pieces/sharepoint/src/index.ts"
+      // ],
       "@activepieces/piece-microsoft-teams": [
         "packages/pieces/community/microsoft-teams/src/index.ts"
       ],
@@ -496,9 +496,9 @@
       "@activepieces/piece-smtp": [
         "packages/pieces/community/smtp/src/index.ts"
       ],
-      "@activepieces/piece-snowflake": [
-        "packages/ee/pieces/snowflake/src/index.ts"
-      ],
+      // "@activepieces/piece-snowflake": [
+      //   "packages/ee/pieces/snowflake/src/index.ts"
+      // ],
       "@activepieces/piece-soap": [
         "packages/pieces/community/soap/src/index.ts"
       ],
@@ -626,7 +626,7 @@
       "@activepieces/piece-zoom": [
         "packages/pieces/community/zoom/src/index.ts"
       ],
-      "@activepieces/piece-zuora": ["packages/ee/pieces/zuora/src/index.ts"],
+      // "@activepieces/piece-zuora": ["packages/ee/pieces/zuora/src/index.ts"],
       "@activepieces/pieces-common": [
         "packages/pieces/community/common/src/index.ts"
       ],
@@ -681,16 +681,16 @@
       "@activepieces/ui/feature-templates": [
         "packages/ui/feature-templates/src/index.ts"
       ],
-      "@ee/*": ["packages/ee/*"],
-      "ee-billing-ui": ["packages/ee/ui/billing/src/index.ts"],
-      "ee-components": ["packages/ee/ui/components/src/index.ts"],
-      "ee-embed-sdk": ["packages/ee/ui/embed-sdk/src/index.ts"],
-      "ee-project-members": ["packages/ee/ui/project-members/src/index.ts"],
+      // "@ee/*": ["packages/ee/*"],
+      // "ee-billing-ui": ["packages/ee/ui/billing/src/index.ts"],
+      // "ee-components": ["packages/ee/ui/components/src/index.ts"],
+      // "ee-embed-sdk": ["packages/ee/ui/embed-sdk/src/index.ts"],
+      // "ee-project-members": ["packages/ee/ui/project-members/src/index.ts"],
       "@activepieces/ui-feature-flow-actions-list": [
         "packages/ui/feature-flow-actions-list/src/index.ts"
       ],
       "server-worker": ["packages/server/worker/src/index.ts"],
-      "ui-ee-platform": ["packages/ee/ui/platform/src/index.ts"],
+      // "ui-ee-platform": ["packages/ee/ui/platform/src/index.ts"],
       "ui-feature-flow-builder": [
         "packages/ui/feature-flow-builder/src/index.ts"
       ],

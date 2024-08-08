@@ -1,4 +1,4 @@
-import { ApplicationEventName } from '@activepieces/ee-shared'
+// import { ApplicationEventName } from '@activepieces/ee-shared'
 import { system, SystemProp } from '@activepieces/server-shared'
 import {
     ALL_PRINCIPAL_TYPES,
@@ -14,6 +14,24 @@ import { authenticationService } from './authentication-service'
 import { Provider } from './authentication-service/hooks/authentication-service-hooks'
 
 const edition = system.getEdition()
+
+export enum ApplicationEventName {
+    CREATED_FLOW = 'CREATED_FLOW',
+    DELETED_FLOW = 'DELETED_FLOW',
+    CREATED_FOLDER = 'CREATED_FOLDER',
+    UPDATED_FOLDER = 'UPDATED_FOLDER',
+    DELETED_FOLDER = 'DELETED_FOLDER',
+    UPDATED_FLOW = 'UPDATED_FLOW',
+    UPSERTED_CONNECTION = 'UPSERTED_CONNECTION',
+    DELETED_CONNECTION = 'DELETED_CONNECTION',
+    SIGNED_UP_USING_EMAIL = 'SIGNED_UP_USING_EMAIL',
+    SIGNED_UP_USING_SSO = 'SIGNED_UP_USING_SSO',
+    SIGNED_UP_USING_MANAGED_AUTH = 'SIGNED_UP_USING_MANAGED_AUTH',
+    SIGNED_IN = 'SIGNED_IN',
+    RESET_PASSWORD = 'RESET_PASSWORD',
+    VERIFIED_EMAIL = 'VERIFIED_EMAIL',
+    CREATED_SIGNING_KEY = 'CREATED_SIGNING_KEY',
+}
 
 export const authenticationController: FastifyPluginAsyncTypebox = async (
     app,

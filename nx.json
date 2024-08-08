@@ -83,7 +83,6 @@
       "projectNameAndRootFormat": "as-provided"
     }
   },
-  "nxCloudAccessToken": "Y2Y3YzhhNjYtZWI4OC00M2Y0LWIwY2ItMWJhNTBjYzA3ZDA0fHJlYWQtb25seQ==",
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",

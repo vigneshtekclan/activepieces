@@ -1,4 +1,4 @@
-import { ApplicationEventName } from '@activepieces/ee-shared'
+// import { ApplicationEventName } from '@activepieces/ee-shared'
 import {
     ActivepiecesError,
     ApId,
@@ -6,6 +6,7 @@ import {
     CreateFlowRequest,
     ErrorCode,
     FlowOperationRequest,
+    FlowOperationType,
     FlowTemplateWithoutProjectInformation,
     GetFlowQueryParamsRequest,
     isNil,
@@ -24,10 +25,11 @@ import {
 import dayjs from 'dayjs'
 import { StatusCodes } from 'http-status-codes'
 import { entitiesMustBeOwnedByCurrentProject } from '../../authentication/authorization'
-import { assertUserHasPermissionToFlow } from '../../ee/authentication/rbac/rbac-middleware'
+// import { assertUserHasPermissionToFlow } from '../../ee/authentication/rbac/rbac-middleware'
 import { eventsHooks } from '../../helper/application-events'
 import { projectService } from '../../project/project-service'
 import { flowService } from './flow.service'
+import { ApplicationEventName } from '../../authentication/authentication.controller'
 
 const DEFAULT_PAGE_SIZE = 10
 
@@ -51,7 +53,7 @@ export const flowController: FastifyPluginAsyncTypebox = async (app) => {
 
     app.post('/:id', UpdateFlowRequestOptions, async (request) => {
         const userId = await extractUserIdFromPrincipal(request.principal)
-        await assertUserHasPermissionToFlow(request.principal, request.body.type)
+        // await assertUserHasPermissionToFlow(request.principal, request.body.type)
 
         const flow = await flowService.getOnePopulatedOrThrow({
             id: request.params.id,
