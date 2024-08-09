@@ -79,7 +79,6 @@ const piecesInstalled = [
     ['@activepieces/piece-open-router', '0.0.8'],
     ['@activepieces/piece-twilio', '0.3.4'],
     ['@activepieces/piece-twitter', '0.2.7'],
-    ['@activepieces/piece-schedule', '0.1.5'],
     ['@activepieces/piece-zendesk', '0.1.4'],
     ['@activepieces/piece-rss', '0.3.7'],
     ['@activepieces/piece-telegram-bot', '0.3.14'],
