@@ -1,12 +1,15 @@
 import { logger, system, SystemProp } from '@activepieces/server-shared'
-import { ApEnvironment } from '@activepieces/shared'
+import { ApEnvironment, NotificationStatus, PackageType, PieceScope } from '@activepieces/shared'
 import { authenticationService } from '../../authentication/authentication-service'
 import { Provider } from '../../authentication/authentication-service/hooks/authentication-service-hooks'
 import { FlagEntity } from '../../flags/flag.entity'
+import { pieceService } from '../../pieces/piece-service'
+import { ProjectEntity } from '../../project/project-entity'
 import { databaseConnection } from '../database-connection'
 
 const DEV_DATA_SEEDED_FLAG = 'DEV_DATA_SEEDED'
 const PROD_DATA_SEEDED_FLAG = 'PROD_DATA_SEEDED'
+const PIECES_DATA_SEEDED_FLAG = 'PIECES_DATA_SEEDED'
 
 const currentEnvIsNotDev = (): boolean => {
     const env = system.get(SystemProp.ENVIRONMENT)
@@ -55,6 +58,59 @@ const getProdAlreadySeeded = async (): Promise<boolean> => {
     return devSeedsFlag?.value === true
 }
 
+const getPiecesAlreadySeeded = async (): Promise<boolean> => {
+    const flagRepo = databaseConnection.getRepository(FlagEntity)
+    const devSeedsFlag = await flagRepo.findOneBy({ id: PIECES_DATA_SEEDED_FLAG })
+    logger.info({ name: 'pieces seed data' }, 'not seeded')
+    return devSeedsFlag?.value === true
+}
+
+const piecesInstalled = [
+    ['@activepieces/piece-google-sheets', '0.10.6'],
+    ['@activepieces/piece-openai', '0.3.25'],
+    ['@activepieces/piece-store', '0.5.1'],
+    ['@activepieces/piece-wordpress', '0.3.14'],
+    ['@activepieces/piece-gmail', '0.7.0'],
+    ['@activepieces/piece-typeform', '0.3.4'],
+    ['@activepieces/piece-json', '0.0.2'],
+    ['@activepieces/piece-mailchimp', '0.3.6'],
+    ['@activepieces/piece-sendgrid', '0.3.4'],
+    ['@activepieces/piece-schedule', '0.1.5'],
+    ['@activepieces/piece-open-router', '0.0.8'],
+    ['@activepieces/piece-twilio', '0.3.4'],
+    ['@activepieces/piece-twitter', '0.2.7'],
+    ['@activepieces/piece-schedule', '0.1.5'],
+    ['@activepieces/piece-zendesk', '0.1.4'],
+    ['@activepieces/piece-rss', '0.3.7'],
+    ['@activepieces/piece-telegram-bot', '0.3.14'],
+    ['@activepieces/piece-airtable', '0.4.16'],
+]
+
+const setPiecesSeedData = async (): Promise<boolean> => {
+
+    const projectRepo = databaseConnection.getRepository(ProjectEntity)
+
+    const devSeedsFlag = await projectRepo.findOneBy({ notifyStatus: NotificationStatus.ALWAYS })
+
+    const projectId = devSeedsFlag?.id != null ? devSeedsFlag?.id : 'test'
+
+    for (const [pieceName, pieceVersion] of piecesInstalled) {
+        const params = {
+            packageType: PackageType.REGISTRY,
+            scope: PieceScope.PLATFORM,
+            pieceName,
+            pieceVersion,
+            pieceArchive: null,
+        }
+
+        await pieceService
+            .installPiece(devSeedsFlag?.platformId, projectId, ...[params])
+    }
+
+    logger.info({ name: 'pieces seed data' }, 'successfully seeded')
+    return true
+}
+
 const setProdDataSeededFlag = async (): Promise<void> => {
     const flagRepo = databaseConnection.getRepository(FlagEntity)
 
@@ -92,10 +148,16 @@ export const seedDevData = async (): Promise<void> => {
             await seedProdUser()
             await setProdDataSeededFlag()
         }
+        if (!await getPiecesAlreadySeeded()) {
+            await setPiecesSeedData()
+        }
         return
     }
 
     if (await devDataAlreadySeeded()) {
+        if (!await getPiecesAlreadySeeded()) {
+            await setPiecesSeedData()
+        }
         logger.info({ name: 'seedDevData' }, 'skip: already seeded')
         return
     }
