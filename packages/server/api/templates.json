@@ -34,7 +34,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new_row",
-						"pieceVersion": "~0.5.1"
+						"pieceVersion": "~0.10.6"
 					},
 					"nextAction": {
 						"name": "step_8",
@@ -57,7 +57,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.3.6"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_4",
@@ -102,7 +102,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.2.6"
+										"pieceVersion": "~0.5.1"
 									},
 									"nextAction": {
 										"name": "step_1",
@@ -122,7 +122,7 @@
 
 											},
 											"packageType": "REGISTRY",
-											"pieceVersion": "~0.3.3"
+											"pieceVersion": "~0.3.14"
 										},
 										"nextAction": {
 											"name": "step_3",
@@ -152,7 +152,7 @@
 
 												},
 												"packageType": "REGISTRY",
-												"pieceVersion": "~0.4.3"
+												"pieceVersion": "~0.7.0"
 											},
 											"displayName": "Send Email"
 										},
@@ -182,7 +182,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.3.6"
+										"pieceVersion": "~0.3.25"
 									},
 									"nextAction": {
 										"name": "step_6",
@@ -200,7 +200,7 @@
 
 											},
 											"packageType": "REGISTRY",
-											"pieceVersion": "~0.2.6"
+											"pieceVersion": "~0.5.1"
 										},
 										"nextAction": {
 											"name": "step_5",
@@ -219,7 +219,7 @@
 
 												},
 												"packageType": "REGISTRY",
-												"pieceVersion": "~0.2.6"
+												"pieceVersion": "~0.5.1"
 											},
 											"displayName": "Put"
 										},
@@ -298,7 +298,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.10.1",
+							"pieceVersion": "~0.10.6",
 							"errorHandlingOptions": {
 								"retryOnFailure": {
 									"value": false
@@ -360,7 +360,7 @@
 
 									},
 									"packageType": "REGISTRY",
-									"pieceVersion": "~0.3.22",
+									"pieceVersion": "~0.3.25",
 									"errorHandlingOptions": {
 										"retryOnFailure": {
 											"value": false
@@ -398,7 +398,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.5.6",
+										"pieceVersion": "~0.7.0",
 										"errorHandlingOptions": {
 											"retryOnFailure": {
 												"value": false
@@ -462,7 +462,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "subscribe",
-						"pieceVersion": "~0.2.1"
+						"pieceVersion": "~0.3.6"
 					},
 					"nextAction": {
 						"name": "step_1",
@@ -493,7 +493,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.2.5"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_3",
@@ -530,7 +530,7 @@
 
 									},
 									"packageType": "REGISTRY",
-									"pieceVersion": "~0.2.3"
+									"pieceVersion": "~0.3.4"
 								},
 								"displayName": "Send Email"
 							},
@@ -587,7 +587,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "every_day",
-						"pieceVersion": "~0.1.1"
+						"pieceVersion": "~0.1.5"
 					},
 					"nextAction": {
 						"name": "step_3",
@@ -609,7 +609,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.7.3"
+							"pieceVersion": "~0.10.6"
 						},
 						"nextAction": {
 							"name": "step_2",
@@ -628,7 +628,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.0.2"
+								"pieceVersion": "~0.0.8"
 							},
 							"nextAction": {
 								"name": "step_1",
@@ -647,7 +647,7 @@
 
 									},
 									"packageType": "REGISTRY",
-									"pieceVersion": "~0.0.2"
+									"pieceVersion": "~0.0.8"
 								},
 								"nextAction": {
 									"name": "step_4",
@@ -693,7 +693,7 @@
 
 												},
 												"packageType": "REGISTRY",
-												"pieceVersion": "~0.4.0"
+												"pieceVersion": "~0.5.1"
 											},
 											"nextAction": {
 												"name": "step_11",
@@ -714,7 +714,7 @@
 
 													},
 													"packageType": "REGISTRY",
-													"pieceVersion": "~0.3.6"
+													"pieceVersion": "~0.3.14"
 												},
 												"displayName": "Create Post"
 											},
@@ -737,7 +737,7 @@
 
 												},
 												"packageType": "REGISTRY",
-												"pieceVersion": "~0.4.0"
+												"pieceVersion": "~0.5.1"
 											},
 											"nextAction": {
 												"name": "step_7",
@@ -756,7 +756,7 @@
 
 													},
 													"packageType": "REGISTRY",
-													"pieceVersion": "~0.0.2"
+													"pieceVersion": "~0.0.8"
 												},
 												"nextAction": {
 													"name": "step_6",
@@ -776,7 +776,7 @@
 
 														},
 														"packageType": "REGISTRY",
-														"pieceVersion": "~0.4.0"
+														"pieceVersion": "~0.5.1"
 													},
 													"displayName": "Write section"
 												},
@@ -845,7 +845,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new_row",
-						"pieceVersion": "~0.6.8"
+						"pieceVersion": "~0.10.6"
 					},
 					"nextAction": {
 						"name": "step_6",
@@ -870,7 +870,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.3.0"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_1",
@@ -889,7 +889,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.3.0"
+								"pieceVersion": "~0.3.25"
 							},
 							"nextAction": {
 								"name": "step_2",
@@ -909,7 +909,7 @@
 
 									},
 									"packageType": "REGISTRY",
-									"pieceVersion": "~0.3.0"
+									"pieceVersion": "~0.3.14"
 								},
 								"nextAction": {
 									"name": "step_5",
@@ -939,7 +939,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.4.0"
+										"pieceVersion": "~0.7.0"
 									},
 									"displayName": "Send Email"
 								},
@@ -1014,7 +1014,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.2.6"
+							"pieceVersion": "~0.5.1"
 						},
 						"nextAction": {
 							"name": "step_1",
@@ -1031,7 +1031,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.2.5"
+								"pieceVersion": "~0.3.25"
 							},
 							"nextAction": {
 								"name": "step_2",
@@ -1050,7 +1050,7 @@
 
 									},
 									"packageType": "REGISTRY",
-									"pieceVersion": "~0.2.1"
+									"pieceVersion": "~0.3.4"
 								},
 								"nextAction": {
 									"name": "step_4",
@@ -1069,7 +1069,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.2.6"
+										"pieceVersion": "~0.5.1"
 									},
 									"displayName": "Put"
 								},
@@ -1128,7 +1128,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "every_day",
-						"pieceVersion": "~0.0.3"
+						"pieceVersion": "~0.1.5"
 					},
 					"nextAction": {
 						"name": "step_3",
@@ -1153,7 +1153,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.3.0"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_2",
@@ -1171,7 +1171,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.1.0"
+								"pieceVersion": "~0.2.7"
 							},
 							"displayName": "Create Tweet"
 						},
@@ -1223,7 +1223,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new_ticket_in_view",
-						"pieceVersion": "~0.0.4"
+						"pieceVersion": "~0.1.4"
 					},
 					"nextAction": {
 						"name": "step_1",
@@ -1240,7 +1240,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.2.5"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_3",
@@ -1266,7 +1266,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "0.2.11"
+								"pieceVersion": "0.10.6"
 							},
 							"displayName": "Insert Row"
 						},
@@ -1320,7 +1320,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new-item",
-						"pieceVersion": "~0.2.4"
+						"pieceVersion": "~0.3.7"
 					},
 					"nextAction": {
 						"name": "step_1",
@@ -1337,7 +1337,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.2.5"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_2",
@@ -1354,7 +1354,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.0.2"
+								"pieceVersion": "~0.2.7"
 							},
 							"displayName": "Create Tweet"
 						},
@@ -1407,7 +1407,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new_post",
-						"pieceVersion": "~0.3.5"
+						"pieceVersion": "~0.3.14"
 					},
 					"nextAction": {
 						"name": "step_1",
@@ -1438,7 +1438,7 @@
 
 							},
 							"packageType": "REGISTRY",
-							"pieceVersion": "~0.2.5"
+							"pieceVersion": "~0.3.25"
 						},
 						"nextAction": {
 							"name": "step_2",
@@ -1455,7 +1455,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.1.5"
+								"pieceVersion": "~0.2.7"
 							},
 							"displayName": "Create Tweet"
 						},
@@ -1505,7 +1505,7 @@
 						},
 						"packageType": "REGISTRY",
 						"triggerName": "new_telegram_message",
-						"pieceVersion": "~0.3.13"
+						"pieceVersion": "~0.3.14"
 					},
 					"nextAction": {
 						"name": "step_1",
@@ -1545,7 +1545,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.4.14",
+								"pieceVersion": "~0.4.16",
 								"errorHandlingOptions": {
 									"retryOnFailure": {
 										"value": false
@@ -1596,7 +1596,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.3.13",
+										"pieceVersion": "~0.3.14",
 										"errorHandlingOptions": {
 											"retryOnFailure": {
 												"value": false
@@ -1629,7 +1629,7 @@
 
 										},
 										"packageType": "REGISTRY",
-										"pieceVersion": "~0.3.13",
+										"pieceVersion": "~0.3.14",
 										"errorHandlingOptions": {
 											"retryOnFailure": {
 												"value": false
@@ -1661,7 +1661,7 @@
 
 								},
 								"packageType": "REGISTRY",
-								"pieceVersion": "~0.3.13",
+								"pieceVersion": "~0.3.14",
 								"errorHandlingOptions": {
 									"retryOnFailure": {
 										"value": false

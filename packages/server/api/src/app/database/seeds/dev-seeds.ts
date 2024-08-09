@@ -83,6 +83,7 @@ const piecesInstalled = [
     ['@activepieces/piece-rss', '0.3.7'],
     ['@activepieces/piece-telegram-bot', '0.3.14'],
     ['@activepieces/piece-airtable', '0.4.16'],
+    ['@activepieces/piece-webhook', '0.0.1'],
 ]
 
 const setPiecesSeedData = async (): Promise<boolean> => {
