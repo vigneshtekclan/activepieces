@@ -106,6 +106,13 @@ const setPiecesSeedData = async (): Promise<boolean> => {
             .installPiece(devSeedsFlag?.platformId, projectId, ...[params])
     }
 
+    const flagRepo = databaseConnection.getRepository(FlagEntity)
+
+    await flagRepo.save({
+        id: PIECES_DATA_SEEDED_FLAG,
+        value: true,
+    })
+
     logger.info({ name: 'pieces seed data' }, 'successfully seeded')
     return true
 }
