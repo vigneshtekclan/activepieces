@@ -129,7 +129,7 @@ const setProdDataSeededFlag = async (): Promise<void> => {
 }
 
 const seedProdUser = async (): Promise<void> => {
-    const DEV_EMAIL = 'developer@yuniq.com'
+    const DEV_EMAIL = 'developer@pds.com'
     const DEV_PASSWORD = '12345678'
 
 
@@ -137,7 +137,7 @@ const seedProdUser = async (): Promise<void> => {
         email: DEV_EMAIL,
         password: DEV_PASSWORD,
         firstName: 'developer',
-        lastName: 'yuniq',
+        lastName: 'pds',
         trackEvents: false,
         newsLetter: false,
         verified: true,
@@ -162,9 +162,9 @@ export const seedDevData = async (): Promise<void> => {
     }
 
     if (await devDataAlreadySeeded()) {
-        if (!await getPiecesAlreadySeeded()) {
-            await setPiecesSeedData()
-        }
+        // if (!await getPiecesAlreadySeeded()) {
+        //     await setPiecesSeedData()
+        // }
         logger.info({ name: 'seedDevData' }, 'skip: already seeded')
         return
     }

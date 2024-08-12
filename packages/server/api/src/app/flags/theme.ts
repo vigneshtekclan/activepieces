@@ -153,8 +153,8 @@ export function generateTheme({
 
 export const defaultTheme = generateTheme({
     primaryColor: '#6e41e2',
-    websiteName: 'Yuniq Workflow',
-    fullLogoUrl: 'https://media.licdn.com/dms/image/D560BAQFkkH-P2cBbrA/company-logo_200_200/0/1721039318174/tekclan_logo?e=2147483647&v=beta&t=vVzveumxEON2KE-5cZ0MJndtfKLMmdtgFfaYgP5h97I',
-    favIconUrl: 'https://media.licdn.com/dms/image/D560BAQFkkH-P2cBbrA/company-logo_200_200/0/1721039318174/tekclan_logo?e=2147483647&v=beta&t=vVzveumxEON2KE-5cZ0MJndtfKLMmdtgFfaYgP5h97I',
-    logoIconUrl: 'https://media.licdn.com/dms/image/D560BAQFkkH-P2cBbrA/company-logo_200_200/0/1721039318174/tekclan_logo?e=2147483647&v=beta&t=vVzveumxEON2KE-5cZ0MJndtfKLMmdtgFfaYgP5h97I',
+    websiteName: 'PDS Workflow',
+    fullLogoUrl: 'https://lh3.googleusercontent.com/p/AF1QipMe_TrAP-Ab3AcpNQRS0D7uOJk0tFFo9AOm7D2p=s680-w680-h510',
+    favIconUrl: 'https://lh3.googleusercontent.com/p/AF1QipMe_TrAP-Ab3AcpNQRS0D7uOJk0tFFo9AOm7D2p=s680-w680-h510',
+    logoIconUrl: 'https://lh3.googleusercontent.com/p/AF1QipMe_TrAP-Ab3AcpNQRS0D7uOJk0tFFo9AOm7D2p=s680-w680-h510',
 })

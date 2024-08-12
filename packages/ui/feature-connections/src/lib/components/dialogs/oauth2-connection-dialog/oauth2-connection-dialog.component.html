@@ -65,14 +65,14 @@
 
     </div>
 
-    <!-- <div *ngIf="dialogData.pieceAuthProperty.grantType !== OAuth2GrantType.CLIENT_CREDENTIALS">
+    <div *ngIf="dialogData.pieceAuthProperty.grantType !== OAuth2GrantType.CLIENT_CREDENTIALS">
       <app-o-auth2-connect-control [popupParams]="getOAuth2Settings()"
         [settingsValid]="authenticationSettingsControlsValid" formControlName="value"></app-o-auth2-connect-control>
       <p @fadeInUp class="ap-typography-caption ap-text-danger"
         *ngIf="settingsForm.controls.value.invalid &&  settingsForm.controls.value.touched" i18n>
         You have to connect an account to continue
       </p>
-    </div> -->
+    </div>
   </form>
   <a class="ap-cursor-pointer ap-mt-2" *ngIf="(hasCloudAuthCred$ | async) && !dialogData.connectionToUpdate"
     (click)="useCloudCreds()" i18n>I would like to

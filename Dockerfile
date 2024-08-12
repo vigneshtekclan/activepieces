@@ -87,7 +87,7 @@ RUN cd /usr/src/app/dist/packages/server/api/ && npm install --production --forc
 # Copy Output files to appropriate directory from build stage
 COPY --from=build /usr/src/app/packages packages
 
-LABEL service=activepieces
+LABEL service=pds-integrate
 
 # Copy frontend files to Nginx document root directory from build stage
 COPY --from=build /usr/src/app/dist/packages/ui/core/ /usr/share/nginx/html/
